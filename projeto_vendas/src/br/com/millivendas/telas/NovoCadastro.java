@@ -21,10 +21,15 @@ public class NovoCadastro extends javax.swing.JFrame {
     private String ConfirmeEmail;
     private String ConfirmSenha;
     private String Senha;
-   
+ 
+    public NovoCadastro() {
+        initComponents();
+        conexao = Modulo_conector.conector();
+        
+    }
     private void cadastroUsuarios(){
     
-        String SQL = "insert into register_of_users (name_user, phone_number, email_user, login_user, password_user, profile_user) values (?,?,?,?,?,?)";
+        String SQL = "insert into register_of_users (ID_user, name_user, phone_number, email_user, login_user, password_user, profile_user) values (?,?,?,?,?,?,?)";
         String tellCompleto = cboDD.getSelectedItem().toString() + txtTelefone.getText();
 
         emailUser = txtEmail.getText();
@@ -35,7 +40,7 @@ public class NovoCadastro extends javax.swing.JFrame {
 
         try {
         PST = conexao.prepareStatement(SQL);
-        //PST.setString(1, txtUserID.getText());
+        PST.setString(1, txtUserID.getText());
         PST.setString(2,txtName.getText());
         PST.setString(3, tellCompleto);
         PST.setString(4, emailUser);
@@ -73,12 +78,6 @@ public class NovoCadastro extends javax.swing.JFrame {
         }
     }
 
- 
-    public NovoCadastro() {
-        initComponents();
-        conexao = Modulo_conector.conector();
-        
-    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -160,7 +159,7 @@ public class NovoCadastro extends javax.swing.JFrame {
         jLabel15.setText("*Perfil do usuário:");
 
         lblUsuario.setForeground(new java.awt.Color(153, 153, 153));
-        lblUsuario.setText("Fúncionario");
+        lblUsuario.setText("Funcionario");
 
         jLabel13.setText("Atenção, somente os ADM podem adicionar novos Administradores");
 
