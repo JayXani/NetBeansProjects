@@ -39,7 +39,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         Menu = new javax.swing.JMenuBar();
         menCad = new javax.swing.JMenu();
-        menCli = new javax.swing.JMenuItem();
         menVendas = new javax.swing.JMenuItem();
         menADM = new javax.swing.JMenuItem();
         menRelatorio = new javax.swing.JMenu();
@@ -83,16 +82,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel3.setText("Usuário LOGADO: ");
 
         menCad.setText("Cadastro");
-
-        menCli.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.ALT_DOWN_MASK));
-        menCli.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/millivendas/imagens/login.png"))); // NOI18N
-        menCli.setText("Cliente");
-        menCli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menCliActionPerformed(evt);
-            }
-        });
-        menCad.add(menCli);
 
         menVendas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_V, java.awt.event.InputEvent.ALT_DOWN_MASK));
         menVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/millivendas/imagens/logo_venda.png"))); // NOI18N
@@ -212,10 +201,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void menCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menCliActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menCliActionPerformed
-
     private void menVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menVendasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menVendasActionPerformed
@@ -301,7 +286,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public static javax.swing.JMenuItem menADM;
     private javax.swing.JMenu menAjuda;
     private javax.swing.JMenu menCad;
-    private javax.swing.JMenuItem menCli;
     private javax.swing.JMenu menOPC;
     private javax.swing.JMenuItem menRelaSales;
     public static javax.swing.JMenu menRelatorio;
