@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  * @author Danilo
  */
 
-public class Login extends javax.swing.JFrame {
+public class Login extends javax.swing.JFrame{
     Connection conexao = null; //Apenas inicializei a variavel
         
     //Framework para manipulação de dados

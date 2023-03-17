@@ -65,7 +65,7 @@ public class NovoCadastro extends javax.swing.JFrame {
                         conexao.close();
 
                     }else{                   
-                        JOptionPane.showMessageDialog(null, "Senhas invalidas !");
+                        JOptionPane.showMessageDialog(null, "Senhas inválidas !");
                     }
 
                 }else{
