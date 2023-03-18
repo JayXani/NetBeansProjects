@@ -167,7 +167,35 @@ public class TelaAdministrador extends javax.swing.JInternalFrame {
         }
 
     }
-
+    private void deleteUsers(){
+        
+        int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza de que deseja excluir este usuário ?", "ATENÇÃO", JOptionPane.YES_NO_OPTION);
+        if(confirmacao == JOptionPane.YES_OPTION){
+            try {
+                String SQL =  "delete from register_of_users where ID_user = ?";
+                
+                PST = conexao.prepareStatement(SQL);
+                PST.setString(1,txtUserID.getText());
+                int apagado =PST.executeUpdate();
+                
+                if(apagado > 0){
+                txtName.setText(null);
+                txtTelefone.setText(null);
+                txtEmail.setText(null);
+                txtLogin.setText(null);
+                txtUserID.setText(null);
+                txtPassword.setText(null);
+                txtConfirmePass.setText(null);
+                }
+                
+                
+                
+                JOptionPane.showMessageDialog(null, "Usuário removido com sucesso");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e);
+            }
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -421,7 +449,8 @@ public class TelaAdministrador extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnConsultarActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
-        // TODO add your handling code here:
+        
+        deleteUsers();
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnCadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadActionPerformed

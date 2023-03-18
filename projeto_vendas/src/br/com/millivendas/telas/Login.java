@@ -24,7 +24,6 @@ public class Login extends javax.swing.JFrame{
     
    
     
-        //verificação de Login
         public void Logar(){
             String SQL = "select * from register_of_users where login_user = ? and password_user = ?";
             
