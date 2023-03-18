@@ -40,10 +40,10 @@ public class TelaCadastroVendas extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblRegistroVendas = new javax.swing.JTable();
         jTextField5 = new javax.swing.JTextField();
-        btnCadastro = new javax.swing.JButton();
-        btnUpdate = new javax.swing.JButton();
-        btnExcluir = new javax.swing.JButton();
-        btnConsultar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        btnCadVendas = new javax.swing.JButton();
+        btnExcluirVenda1 = new javax.swing.JButton();
+        btnAtualizarVenda = new javax.swing.JButton();
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -91,13 +91,47 @@ public class TelaCadastroVendas extends javax.swing.JInternalFrame {
         ));
         jScrollPane2.setViewportView(tblRegistroVendas);
 
-        btnCadastro.setText("Cadastrar nova vendas");
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/millivendas/imagens/pesquisaVendas.png"))); // NOI18N
+        jButton1.setToolTipText("Consultar venda");
 
-        btnUpdate.setText("Atualizar campo de venda");
+        btnCadVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/millivendas/imagens/adicionar-ao-carrinho.png"))); // NOI18N
+        btnCadVendas.setToolTipText("Cadastrar Nova venda");
+        btnCadVendas.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnCadVendasMouseMoved(evt);
+            }
+        });
+        btnCadVendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadVendasActionPerformed(evt);
+            }
+        });
 
-        btnExcluir.setText("Excluir venda");
+        btnExcluirVenda1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/millivendas/imagens/Excluir (1).png"))); // NOI18N
+        btnExcluirVenda1.setToolTipText("Excluir venda");
+        btnExcluirVenda1.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnExcluirVenda1MouseMoved(evt);
+            }
+        });
+        btnExcluirVenda1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExcluirVenda1ActionPerformed(evt);
+            }
+        });
 
-        btnConsultar.setText("Consultar ");
+        btnAtualizarVenda.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/millivendas/imagens/Atualizar.png"))); // NOI18N
+        btnAtualizarVenda.setToolTipText("Atualizar dados da venda");
+        btnAtualizarVenda.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                btnAtualizarVendaMouseMoved(evt);
+            }
+        });
+        btnAtualizarVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarVendaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -107,9 +141,9 @@ public class TelaCadastroVendas extends javax.swing.JInternalFrame {
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(btnConsultar)
+                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -137,28 +171,29 @@ public class TelaCadastroVendas extends javax.swing.JInternalFrame {
                         .addGap(21, 21, 21))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 31, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnCadastro)
-                        .addGap(56, 56, 56)
-                        .addComponent(btnUpdate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnExcluir)
-                        .addGap(39, 39, 39))))
+                        .addGap(0, 32, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(227, 227, 227)
                 .addComponent(jLabel1)
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(88, 88, 88)
+                .addComponent(btnCadVendas, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83)
+                .addComponent(btnExcluirVenda1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnAtualizarVenda, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(75, 75, 75))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jLabel1)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnConsultar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(21, 21, 21)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jTextField5))
+                .addGap(46, 46, 46)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -180,12 +215,12 @@ public class TelaCadastroVendas extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spnQTD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastro)
-                    .addComponent(btnUpdate)
-                    .addComponent(btnExcluir))
-                .addGap(23, 23, 23))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnExcluirVenda1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCadVendas, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE)
+                    .addComponent(btnAtualizarVenda, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(37, 37, 37))
         );
 
         pack();
@@ -199,12 +234,37 @@ public class TelaCadastroVendas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtModeloCalcadoActionPerformed
 
+    private void btnCadVendasMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCadVendasMouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCadVendasMouseMoved
+
+    private void btnCadVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadVendasActionPerformed
+
+        consulta();
+    }//GEN-LAST:event_btnCadVendasActionPerformed
+
+    private void btnExcluirVenda1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirVenda1MouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExcluirVenda1MouseMoved
+
+    private void btnExcluirVenda1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirVenda1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnExcluirVenda1ActionPerformed
+
+    private void btnAtualizarVendaMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAtualizarVendaMouseMoved
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAtualizarVendaMouseMoved
+
+    private void btnAtualizarVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarVendaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAtualizarVendaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCadastro;
-    private javax.swing.JButton btnConsultar;
-    private javax.swing.JButton btnExcluir;
-    private javax.swing.JButton btnUpdate;
+    private javax.swing.JButton btnAtualizarVenda;
+    private javax.swing.JButton btnCadVendas;
+    private javax.swing.JButton btnExcluirVenda1;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
