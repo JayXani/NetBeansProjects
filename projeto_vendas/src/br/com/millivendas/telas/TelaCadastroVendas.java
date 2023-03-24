@@ -240,7 +240,7 @@ public class TelaCadastroVendas extends javax.swing.JInternalFrame {
 
     private void btnCadVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadVendasActionPerformed
 
-        consulta();
+        
     }//GEN-LAST:event_btnCadVendasActionPerformed
 
     private void btnExcluirVenda1MouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnExcluirVenda1MouseMoved
