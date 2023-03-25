@@ -6,16 +6,12 @@ import java.util.Scanner;
 public class Matrizes {
     Scanner teclado = new Scanner(System.in);
     public void somarMatrizes(){
-        
-        
+          
         int[][] matriz, matriz2, soma;
- 
         
-        System.out.println("Informe as dimensões da matriz: ex 3x3");
-        
+        System.out.println("Informe as dimensões da matriz: ex 3x3");     
         String aux =teclado.next();
         
-           
         matriz = new int[Integer.parseInt(aux.split("x")[0])][Integer.parseInt(aux.split("x")[1])];
         matriz2 = matriz;    //[0][1] é os indices do vetor de split
         soma = matriz;
@@ -41,6 +37,7 @@ public class Matrizes {
                 System.out.print(soma1[j] + " ");
             }
         }
+        System.out.println();
     }
     
     public void subtrairMatrizes(){
@@ -77,6 +74,7 @@ public class Matrizes {
                 System.out.print(subtracao1[j] + " ");
             }
         }
+        System.out.println();
     }
     public void multiplicacaoMatriz(){
         int[][] matrizA, matrizB;
@@ -126,6 +124,7 @@ public class Matrizes {
                 System.out.print(matrizResultado[j] + " ");
             }
         }
+        System.out.println();
     }
     
 }

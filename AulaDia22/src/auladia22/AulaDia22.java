@@ -23,8 +23,9 @@ public class AulaDia22 {
         Scanner teclado = new Scanner(System.in);
         String menu = " 1) Soma de matrizes \n 2) Subtracao de matrizes \n 3)Multiplicacao de matrizes \n";
         
-        System.out.println("Escolha uma opcao deseja: \n" + menu);
+        System.out.println(menu);
         while (opcao == 0) {
+            System.out.println("Escolha uma opcao deseja: \n");
             Matrizes m1 = new Matrizes();
             opcao = teclado.nextInt();
             switch (opcao) {
