@@ -4,10 +4,13 @@ package auladia22;
 import java.util.Scanner;
 
 public class Matrizes {
+    Scanner teclado = new Scanner(System.in);
     public void somarMatrizes(){
+        
+        
         int[][] matriz, matriz2, soma;
  
-        Scanner teclado = new Scanner(System.in);
+        
         System.out.println("Informe as dimensões da matriz: ex 3x3");
         
         String aux =teclado.next();
@@ -43,7 +46,7 @@ public class Matrizes {
     public void subtrairMatrizes(){
         int[][] matriz, matriz2, subtracao;
  
-        Scanner teclado = new Scanner(System.in);
+       
         System.out.println("Informe as dimensões da matriz: ex 3x3");
         
         String aux = teclado.next();
@@ -76,6 +79,53 @@ public class Matrizes {
         }
     }
     public void multiplicacaoMatriz(){
+        int[][] matrizA, matrizB;
+        int linhaA, colunaA, linhaB, colunaB;
         
+        System.out.print("Informe a quantidade de linhas da matriz: ");
+        linhaA = teclado.nextInt();
+        
+        System.out.print("Informe a quantidade de COLUNAS da matriz: ");
+        colunaA = teclado.nextInt();
+        linhaB  = linhaA;
+        colunaB = colunaA;
+        
+        matrizA = new int[linhaA][colunaA];
+        matrizB = new int[linhaB][colunaB];
+        
+        System.out.println("Informe os valores da matriz A: ");
+        for (int[] matrizA1 : matrizA) {
+            for(int j = 0; j < colunaA; j++){
+                matrizA1[j] = teclado.nextInt();
+            }
+        }
+        
+        System.out.println("\nInforme os valores da matriz B: ");
+        for(int[] matrizB1 : matrizB){
+            for(int j = 0; j < colunaB; j++){
+                matrizB1[j] = teclado.nextInt();
+            }
+        }
+        int matrizC[][] = new int[linhaA][colunaB];
+        if(matrizA[0].length == matrizA.length){
+                
+            for(int i = 0; i < linhaA; i++){
+                for(int j = 0; j < colunaB; j++){
+                    for(int k = 0; k < linhaB; k++){
+                        matrizC[i][j] += matrizA[i][k] * matrizB[k][j];
+                    }
+                }
+            }
+        }else{
+            System.out.println("Impossivel realizar a multiplicacao");
+        }
+        System.out.println("A multiplicacao dos valores");
+        for (int[] matrizResultado : matrizC) {
+            System.out.println();
+            for(int j = 0;j < matrizResultado.length; j++){
+                System.out.print(matrizResultado[j] + " ");
+            }
+        }
     }
+    
 }
