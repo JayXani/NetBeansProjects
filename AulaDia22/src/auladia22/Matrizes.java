@@ -108,7 +108,7 @@ public class Matrizes {
         if(matrizA[0].length == matrizA.length){
                 
             for(int i = 0; i < linhaA; i++){
-                for(int j = 0; j < colunaB; j++){
+                for(int j = 0; j < matrizB[0].length; j++){
                     for(int k = 0; k < linhaB; k++){
                         matrizC[i][j] += matrizA[i][k] * matrizB[k][j];
                     }
