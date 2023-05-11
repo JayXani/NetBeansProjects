@@ -17,8 +17,8 @@ import java.util.ArrayList;
  */
 public class ReservaQuarto extends Quartos{
     ArrayList <Quartos> quartoReservado = new ArrayList();
-    public ReservaQuarto(ArrayList<Clientes> hospedes,ArrayList<Camas> novaCama, boolean frigobar, boolean Sacada, boolean banheiroPrivativo, boolean tv, double precoDiaria,LocalDate chekIN, LocalDate chekOUT) {
-        super(hospedes, novaCama, frigobar, Sacada, banheiroPrivativo, tv, precoDiaria,chekIN, chekOUT);
+    public ReservaQuarto(ArrayList<Clientes> hospedes,ArrayList<Camas> novaCama, boolean frigobar, boolean Sacada, boolean banheiroPrivativo, boolean tv, double precoDiaria,LocalDate chekIN, LocalDate chekOUT, ArrayList<Integer> idHospede) {
+        super(hospedes, novaCama, frigobar, Sacada, banheiroPrivativo, tv, precoDiaria,chekIN, chekOUT,idHospede);
     }
     
     public void reservaRealizada(Quartos quarto){

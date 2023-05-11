@@ -15,9 +15,11 @@ import javax.swing.JOptionPane;
 public class TelaReserva extends javax.swing.JInternalFrame {
 
     private final ArrayList<Clientes> cliente = new ArrayList();
-    private int verificadorDeHospedes = 1;
+    private int verificadorDeHospedes = 0;
     private final TelaEscolhaQuarto telaQuarto;
+    private final ArrayList<Integer> idClientePorQuarto = new ArrayList();
     int qtdHospedes;
+    private int identificadorHospede = 0;
 
     public TelaReserva() {
         telaQuarto = new TelaEscolhaQuarto();
@@ -225,8 +227,12 @@ public class TelaReserva extends javax.swing.JInternalFrame {
                 if (verificaCpf == false) {
                     return null;
                 } else {
+                    if(qtdHospedes < verificadorDeHospedes){
+                        idClientePorQuarto.add(identificadorHospede);
+                        identificadorHospede++;
+                    }
                     dataNascimento = diaNascimento + "/" + mesNascimento + "/" + anoNascimento;
-                    cliente.add(new Clientes(nomeCliente, dataNascimento, cpfClient));
+                    cliente.add(new Clientes(nomeCliente, dataNascimento, cpfClient,idClientePorQuarto));
                 }
             }
         }
