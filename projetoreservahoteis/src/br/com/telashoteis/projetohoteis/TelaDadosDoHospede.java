@@ -12,16 +12,16 @@ import javax.swing.JOptionPane;
  *
  * @author Danilo
  */
-public class TelaReserva extends javax.swing.JInternalFrame {
-
+public class TelaDadosDoHospede extends javax.swing.JInternalFrame {
+    
     private final ArrayList<Clientes> cliente = new ArrayList();
-    private int verificadorDeHospedes = 0;
+    private int hospedeValidado = 0;
     private final TelaEscolhaQuarto telaQuarto;
-    private final ArrayList<Integer> idClientePorQuarto = new ArrayList();
     int qtdHospedes;
-    private int identificadorHospede = 0;
+    private int identificadorHospede;
 
-    public TelaReserva() {
+    public TelaDadosDoHospede() {
+        identificadorHospede = 1;
         telaQuarto = new TelaEscolhaQuarto();
         initComponents();
     }
@@ -108,27 +108,13 @@ public class TelaReserva extends javax.swing.JInternalFrame {
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(246, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnProximaEtapa, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
-                                .addComponent(txtCPF, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel11)))
-                        .addGap(0, 398, Short.MAX_VALUE))
+                        .addComponent(btnProximaEtapa, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
                             .addComponent(quantidadeHospedes, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 92, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
@@ -143,7 +129,23 @@ public class TelaReserva extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(comboAno, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(36, 36, 36))))
+                        .addGap(36, 36, 36))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 281, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel11))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                                .addComponent(txtCPF, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
@@ -158,7 +160,7 @@ public class TelaReserva extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel10)
@@ -177,7 +179,7 @@ public class TelaReserva extends javax.swing.JInternalFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel11))
@@ -194,13 +196,13 @@ public class TelaReserva extends javax.swing.JInternalFrame {
     private void btnProximaEtapaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximaEtapaActionPerformed
 
         if (dadosCliente() != null) {
-            if (validacaoCliente() == false) {
+            if (validacaoCliente() != qtdHospedes) {
                 JOptionPane.showMessageDialog(null, "ATENÇÃO !\nAinda há hospedes sem cadastro !");
             } else {
                 telaQuarto.setCliente(dadosCliente());
                 TelaPrincipal.desktopMain.add(telaQuarto);
                 telaQuarto.setVisible(true);
-                verificadorDeHospedes = 1;
+                hospedeValidado = 0;
                 this.dispose();
             }
         } else {
@@ -226,29 +228,23 @@ public class TelaReserva extends javax.swing.JInternalFrame {
 
                 if (verificaCpf == false) {
                     return null;
-                } else {
-                    if(qtdHospedes < verificadorDeHospedes){
-                        idClientePorQuarto.add(identificadorHospede);
-                        identificadorHospede++;
-                    }
+                } else {                          
                     dataNascimento = diaNascimento + "/" + mesNascimento + "/" + anoNascimento;
-                    cliente.add(new Clientes(nomeCliente, dataNascimento, cpfClient,idClientePorQuarto));
+                    cliente.add(new Clientes(nomeCliente.toUpperCase(), dataNascimento, cpfClient, identificadorHospede));
+                    
                 }
             }
         }
         return cliente;
     }
 
-    public boolean validacaoCliente() {
+    public int validacaoCliente() {
         qtdHospedes = Integer.parseInt(quantidadeHospedes.getValue().toString());
-
-        boolean hospedeValidado = false;
-        if (verificadorDeHospedes < qtdHospedes) {
-            verificadorDeHospedes++;
-            return hospedeValidado;
-        } else {
-            hospedeValidado = true;
-        }
+        if(qtdHospedes == hospedeValidado) identificadorHospede++;
+       
+        if (hospedeValidado <= qtdHospedes) {
+            hospedeValidado++;
+        } 
         return hospedeValidado;
     }
 
