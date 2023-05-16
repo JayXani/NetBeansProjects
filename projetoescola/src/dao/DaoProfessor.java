@@ -1,19 +1,22 @@
 package dao;
-import java.util.ArrayList;
+
+import java.util.HashMap;
 import projetodaescola.Professor;
 
 public class DaoProfessor{
-    ArrayList<Professor> professor = new ArrayList();
-    Professor novoProfessor;
-
-    public DaoProfessor(Professor novoProfessor) {
-        this.novoProfessor = novoProfessor;
-    }
+    HashMap <Integer,Professor> professor = new HashMap();
     
-    public void cadastrarProfessor(){
-        professor.add(novoProfessor);
+    public void cadastrarProfessor(Professor novoProfessor){
+        professor.put(novoProfessor.getRegistro(), novoProfessor);
     }
-    public void excluirProfessor(){//verificar
+    public void excluirProfessor(int registroDeExclusao){
+        professor.remove(registroDeExclusao);
+    }
+    public Professor pesquisarProfessor(int registroSearch){
+        if(professor.isEmpty()) return null;
+        return professor.get(registroSearch);
+    }
+    public void alterarProfessor(){
         
     }
 }

@@ -5,6 +5,7 @@
 package telagraficaescola;
 
 import dao.DaoAluno;
+import dao.DaoProfessor;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,12 +14,14 @@ import javax.swing.JOptionPane;
  */
 public class TelaPrincipal extends javax.swing.JFrame {
     DaoAluno daoAluno;
+    DaoProfessor daoProfessor;
     /**
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
         initComponents();
         daoAluno = new DaoAluno();
+        daoProfessor = new DaoProfessor();
     }
 
     /**
@@ -57,7 +60,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         desktopPrincipal.setLayout(desktopPrincipalLayout);
         desktopPrincipalLayout.setHorizontalGroup(
             desktopPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 623, Short.MAX_VALUE)
+            .addGap(0, 600, Short.MAX_VALUE)
         );
         desktopPrincipalLayout.setVerticalGroup(
             desktopPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,6 +124,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem2.setText("Excluir professor");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem2);
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -205,6 +213,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"Aluno:  " + daoAluno.pesquisarAluno(getRa).getName());
         }
     }//GEN-LAST:event_menuPesquisarActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        TelaExcluirProfessor telaExcluirProf = new TelaExcluirProfessor(daoProfessor);
+        telaExcluirProf.setVisible(true);
+        desktopPrincipal.add(telaExcluirProf);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments

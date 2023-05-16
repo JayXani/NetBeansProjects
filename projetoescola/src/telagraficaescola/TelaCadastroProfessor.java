@@ -231,8 +231,8 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
 
     private void btnCadastrarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProfessorActionPerformed
 
-        DaoProfessor novoProfessor = new DaoProfessor(dadosProfessor());
-        novoProfessor.cadastrarProfessor();
+        DaoProfessor novoProfessor = new DaoProfessor();
+        novoProfessor.cadastrarProfessor(dadosProfessor());
 
     }//GEN-LAST:event_btnCadastrarProfessorActionPerformed
 
