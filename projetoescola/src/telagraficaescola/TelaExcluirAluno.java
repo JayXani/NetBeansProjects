@@ -1,22 +1,24 @@
-
 package telagraficaescola;
-import dal.DalAluno;
 
-
+import dao.DaoAluno;
+import javax.swing.JOptionPane;
 
 public class TelaExcluirAluno extends javax.swing.JInternalFrame {
 
-    
-    public TelaExcluirAluno() {
+    DaoAluno dadosAluno = new DaoAluno();
+
+    public TelaExcluirAluno(DaoAluno dadosAluno) {
+        this.dadosAluno = dadosAluno;
         initComponents();
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtRaSearch = new javax.swing.JTextField();
         btnVerificar = new javax.swing.JButton();
         btnApagar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -28,6 +30,9 @@ public class TelaExcluirAluno extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Exclusão");
+        setMaximumSize(new java.awt.Dimension(600, 550));
+        setMinimumSize(new java.awt.Dimension(600, 550));
+        setPreferredSize(new java.awt.Dimension(600, 550));
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel1.setText("Exclusão de alunos");
@@ -42,6 +47,11 @@ public class TelaExcluirAluno extends javax.swing.JInternalFrame {
         });
 
         btnApagar.setText("Apagar");
+        btnApagar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApagarActionPerformed(evt);
+            }
+        });
 
         jLabel3.setForeground(new java.awt.Color(255, 51, 51));
         jLabel3.setText("ATENÇÃO:");
@@ -57,46 +67,53 @@ public class TelaExcluirAluno extends javax.swing.JInternalFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(122, 122, 122)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(btnVerificar)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 277, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(18, 18, 18)
-                                .addComponent(lblResultado)))))
-                .addContainerGap(121, Short.MAX_VALUE))
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtRaSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(btnVerificar)
+                                .addGap(50, 50, 50)
+                                .addComponent(btnApagar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel1)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5)
+                                        .addGap(62, 62, 62)
+                                        .addComponent(lblResultado)
+                                        .addGap(113, 113, 113)))))
+                        .addGap(181, 181, 181))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
+                .addGap(16, 16, 16)
                 .addComponent(jLabel1)
-                .addGap(17, 17, 17)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(89, 89, 89)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRaSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(lblResultado))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 156, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnVerificar)
                     .addComponent(btnApagar))
@@ -107,9 +124,36 @@ public class TelaExcluirAluno extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
-       DalAluno Dal2 = new DalAluno();
-   
+
+        if (txtRaSearch.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Campo de RA não preenchido");
+        } else {
+            int searchRa = Integer.parseInt(txtRaSearch.getText().toString());
+
+            if (dadosAluno.pesquisarAluno(searchRa) == null) {
+                JOptionPane.showMessageDialog(null, "Aluno não encontrado na base de dados !");
+            } else {
+                lblResultado.setText(dadosAluno.pesquisarAluno(searchRa).getName());
+            }
+        }
     }//GEN-LAST:event_btnVerificarActionPerformed
+
+    private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
+
+        int ra = Integer.parseInt(JOptionPane.showInputDialog("Por questões de segurança, informe o RA do aluno novamente: "));
+        if (dadosAluno.pesquisarAluno(ra) != null) {
+            int exclusao = JOptionPane.showConfirmDialog(null,"Deseja excluir o aluno : " + dadosAluno.pesquisarAluno(ra).getName(),"ATENÇÃO", JOptionPane.YES_NO_OPTION);
+            if (exclusao == JOptionPane.YES_OPTION) {
+                dadosAluno.excluirAluno(ra);
+                JOptionPane.showMessageDialog(null, "Aluno Excluído com sucesso");
+                lblResultado.setText("");
+            } else {
+                JOptionPane.showMessageDialog(null, "Aluno não excluído");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Impossivel excluir um aluno inexistente !");
+        }
+    }//GEN-LAST:event_btnApagarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -120,7 +164,7 @@ public class TelaExcluirAluno extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblResultado;
+    private javax.swing.JTextField txtRaSearch;
     // End of variables declaration//GEN-END:variables
 }

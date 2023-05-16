@@ -6,8 +6,11 @@
     <Property name="iconifiable" type="boolean" value="true"/>
     <Property name="maximizable" type="boolean" value="true"/>
     <Property name="title" type="java.lang.String" value="Cadastro"/>
+    <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+      <Dimension value="[600, 550]"/>
+    </Property>
     <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-      <Dimension value="[529, 543]"/>
+      <Dimension value="[600, 550]"/>
     </Property>
   </Properties>
   <SyntheticProperties>
@@ -38,7 +41,7 @@
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <Component id="txtNomeAluno" alignment="0" max="32767" attributes="0"/>
                       </Group>
-                      <EmptySpace min="91" pref="210" max="32767" attributes="0"/>
+                      <EmptySpace min="91" pref="281" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -115,7 +118,7 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtTelefoneAluno" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="29" max="32767" attributes="0"/>
+              <EmptySpace pref="36" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="comboSe" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>

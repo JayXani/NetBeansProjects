@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package telagraficaescola;
-import dal.DalAluno;
+
+import dao.DaoAluno;
 import projetodaescola.*;
 
 import javax.swing.JOptionPane;
@@ -13,11 +14,15 @@ import javax.swing.JOptionPane;
  * @author Danilo
  */
 public class TelaCadastroAluno extends javax.swing.JInternalFrame {
+    DaoAluno da1 = new DaoAluno();
+    
 
     /**
      * Creates new form TelaCadastroAluno
+     * @param da1
      */
-    public TelaCadastroAluno() {
+    public TelaCadastroAluno(DaoAluno da1) {
+        this.da1 = da1;
         initComponents();
     }
 
@@ -50,7 +55,8 @@ public class TelaCadastroAluno extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Cadastro");
-        setMinimumSize(new java.awt.Dimension(529, 543));
+        setMaximumSize(new java.awt.Dimension(600, 550));
+        setMinimumSize(new java.awt.Dimension(600, 550));
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel1.setText("Cadastro de Aluno");
@@ -93,7 +99,7 @@ public class TelaCadastroAluno extends javax.swing.JInternalFrame {
                             .addComponent(txtRA, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
                             .addComponent(jLabel2)
                             .addComponent(txtNomeAluno))
-                        .addGap(91, 210, Short.MAX_VALUE))
+                        .addGap(91, 281, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -112,10 +118,9 @@ public class TelaCadastroAluno extends javax.swing.JInternalFrame {
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(1, 1, 1)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGap(247, 247, 247))
-                                        .addComponent(jLabel9))))
+                                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel9))
+                                    .addGap(247, 247, 247)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
@@ -153,7 +158,7 @@ public class TelaCadastroAluno extends javax.swing.JInternalFrame {
                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTelefoneAluno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(comboSe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
@@ -166,25 +171,24 @@ public class TelaCadastroAluno extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        DalAluno da1 = new DalAluno();
-        
+
         String sexo = comboSe.getSelectedItem().toString();
-    
-        if(txtRA.getText().isEmpty() || txtNomeAluno.getText().isEmpty() || txtEndAluno.getText().isEmpty()
-            || txtTelefoneAluno.getText().isEmpty()){
+
+        if (txtRA.getText().isEmpty() || txtNomeAluno.getText().isEmpty() || txtEndAluno.getText().isEmpty()
+                || txtTelefoneAluno.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campos não preenchidos");
-            
-        }else{
+
+        } else {
             int ra = Integer.parseInt(txtRA.getText());
             Aluno aluno1 = new Aluno(ra, txtNomeAluno.getText(),
-            txtEndAluno.getText(),txtTelefoneAluno.getText(), sexo);
+                    txtEndAluno.getText(), txtTelefoneAluno.getText(), sexo);
             da1.cadastrarAluno(aluno1);
             JOptionPane.showMessageDialog(null, "Aluno: " + aluno1.getName() + "\nCadastrado com sucesso");
             txtRA.setText("");
             txtNomeAluno.setText("");
             txtEndAluno.setText("");
             txtTelefoneAluno.setText("");
-            
+
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 

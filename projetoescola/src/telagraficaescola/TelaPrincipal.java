@@ -4,17 +4,21 @@
  */
 package telagraficaescola;
 
+import dao.DaoAluno;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Danilo
  */
 public class TelaPrincipal extends javax.swing.JFrame {
-
+    DaoAluno daoAluno;
     /**
      * Creates new form TelaPrincipal
      */
     public TelaPrincipal() {
         initComponents();
+        daoAluno = new DaoAluno();
     }
 
     /**
@@ -46,11 +50,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setTitle("Sistema Acadêmico");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
+        desktopPrincipal.setMaximumSize(new java.awt.Dimension(600, 550));
+        desktopPrincipal.setMinimumSize(new java.awt.Dimension(600, 550));
+
         javax.swing.GroupLayout desktopPrincipalLayout = new javax.swing.GroupLayout(desktopPrincipal);
         desktopPrincipal.setLayout(desktopPrincipalLayout);
         desktopPrincipalLayout.setHorizontalGroup(
             desktopPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 593, Short.MAX_VALUE)
+            .addGap(0, 623, Short.MAX_VALUE)
         );
         desktopPrincipalLayout.setVerticalGroup(
             desktopPrincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -92,6 +99,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuPesquisar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menuPesquisar.setText("Pesquisar aluno");
+        menuPesquisar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuPesquisarActionPerformed(evt);
+            }
+        });
         jmenuAluno.add(menuPesquisar);
 
         jMenuBar1.add(jmenuAluno);
@@ -134,13 +146,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(desktopPrincipal)
-                .addGap(18, 18, 18)
+                .addComponent(desktopPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel2)
-                        .addComponent(jLabel1))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addGap(115, 115, 115))
+                        .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -152,8 +166,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(317, Short.MAX_VALUE))
-            .addComponent(desktopPrincipal)
+                .addContainerGap(338, Short.MAX_VALUE))
+            .addComponent(desktopPrincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -161,13 +175,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cadAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadAlunoActionPerformed
-        TelaCadastroAluno telaCad1 = new TelaCadastroAluno();
+        TelaCadastroAluno telaCad1 = new TelaCadastroAluno(this.daoAluno);
         telaCad1.setVisible(true);
         desktopPrincipal.add(telaCad1);
     }//GEN-LAST:event_cadAlunoActionPerformed
 
     private void menuExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExcluirActionPerformed
-           TelaExcluirAluno telaExcluir = new TelaExcluirAluno();
+           TelaExcluirAluno telaExcluir = new TelaExcluirAluno(this.daoAluno);
            telaExcluir.setVisible(true);
            desktopPrincipal.add(telaExcluir);
     }//GEN-LAST:event_menuExcluirActionPerformed
@@ -182,6 +196,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaCadprof.setVisible(true);
         desktopPrincipal.add(telaCadprof);
     }//GEN-LAST:event_menuCadProfActionPerformed
+
+    private void menuPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPesquisarActionPerformed
+        int getRa = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o RA do aluno que deseja pesquisar: "));
+        if(daoAluno.pesquisarAluno(getRa) == null){
+            JOptionPane.showMessageDialog(null,"Não existe aluno, com o ra informado, cadastrado na base de dados ");
+        }else{
+            JOptionPane.showMessageDialog(null,"Aluno:  " + daoAluno.pesquisarAluno(getRa).getName());
+        }
+    }//GEN-LAST:event_menuPesquisarActionPerformed
 
     /**
      * @param args the command line arguments

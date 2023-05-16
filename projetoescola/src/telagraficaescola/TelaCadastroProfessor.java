@@ -1,8 +1,9 @@
 package telagraficaescola;
 
-import dal.DalProfessor;
+import dao.DaoProfessor;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import projetodaescola.Cursos;
 import projetodaescola.Professor;
 
 /**
@@ -12,6 +13,9 @@ import projetodaescola.Professor;
 public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
 
     private Professor professor;
+    private final ArrayList<String> addDisciplinas = new ArrayList();
+    private final ArrayList<Cursos> cursos = new ArrayList();
+    private Cursos novoCurso;
 
     public TelaCadastroProfessor() {
         initComponents();
@@ -39,12 +43,11 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         txtEndProf = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        checkEletiva = new javax.swing.JCheckBox();
-        checkLP = new javax.swing.JCheckBox();
-        checkPHP = new javax.swing.JCheckBox();
-        checkSO = new javax.swing.JCheckBox();
         btnValidarMaterias = new javax.swing.JButton();
+        comboCurso = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        txtDisciplinas = new javax.swing.JTextField();
 
         checkPort2.setText("Português");
         checkPort2.addActionListener(new java.awt.event.ActionListener() {
@@ -63,6 +66,8 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
+        setMaximumSize(new java.awt.Dimension(600, 550));
+        setMinimumSize(new java.awt.Dimension(600, 550));
 
         jLabel6.setText("ex: Rua teste, 1");
 
@@ -92,22 +97,7 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
 
         jLabel5.setText(" (Apenas nome da rua e número)");
 
-        jLabel10.setText("<html>\n\t<p>ATENÇÃO !<br><br>\n\tInforme as matérias lecionadas pelo professor\n\te em seguida,<br> clique em \"validar matérias\". <br>\n\tApós isso, clique em \"cadastrar\"\n\t\n\t</p>\n</hmtl>\n");
-
-        jLabel11.setText("Materias disponiveis na instituição:");
-
-        checkEletiva.setText("Eletiva - JAVA");
-
-        checkLP.setText("Linguagem de Programação");
-        checkLP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                checkLPActionPerformed(evt);
-            }
-        });
-
-        checkPHP.setText("PHP");
-
-        checkSO.setText("Sistemas Operacionais");
+        jLabel10.setText("<html>\n\t<p>ATENÇÃO !<br><br>\n\tInforme as matérias lecionadas pelo professor\n\te em seguida,<br> clique em \"validar matérias\" toda vez que uma materia for colocada<br>no\n\tcampo de \"Disciplinas\". <br>\n\tApós isso, clique em \"cadastrar\"\n\t\n\t</p>\n</hmtl>\n");
 
         btnValidarMaterias.setText("Validar Matérias");
         btnValidarMaterias.addActionListener(new java.awt.event.ActionListener() {
@@ -116,94 +106,115 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
             }
         });
 
+        comboCurso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha um curso", "ADS - Analise e Desenvolvimento de Sistemas", "AGR - Agro negócio", "LOG - Logística", " " }));
+        comboCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboCursoActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setText("Curso:");
+
+        jLabel13.setText("Disciplinas");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtRegistroProf)
-                        .addComponent(txtNomeProf, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3)
-                        .addComponent(jLabel2)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel7)
-                            .addGap(18, 18, 18)
-                            .addComponent(jLabel8))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addGap(18, 18, 18)
-                                .addComponent(comboSe, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtTelefoneProf, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnCadastrarProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtEndProf, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel6)
-                                        .addGap(3, 3, 3))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(52, 52, 52)))))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(checkLP)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11)
-                    .addComponent(checkPHP)
-                    .addComponent(checkEletiva)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(txtRegistroProf)
+                    .addComponent(txtNomeProf, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel8))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnValidarMaterias)
-                        .addComponent(checkSO)))
-                .addContainerGap())
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel9)
+                            .addGap(18, 18, 18)
+                            .addComponent(comboSe, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtTelefoneProf, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(btnCadastrarProfessor, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtEndProf, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addComponent(jLabel4)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(jLabel6)
+                                    .addGap(3, 3, 3))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(52, 52, 52))))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel13)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(txtDisciplinas, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(21, 21, 21))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(36, 36, 36)
+                                        .addComponent(btnValidarMaterias)))
+                                .addGap(28, 28, 28))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(148, 148, 148))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(txtRegistroProf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(30, 30, 30)
-                        .addComponent(jLabel3))
+                        .addComponent(jLabel3)
+                        .addGap(8, 8, 8)
+                        .addComponent(txtNomeProf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel6)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(jLabel10)))
-                .addGap(8, 8, 8)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNomeProf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel6)
-                    .addComponent(checkEletiva))
-                .addGap(18, 18, 18)
+                        .addComponent(jLabel1)
+                        .addGap(33, 33, 33)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)))
+                .addGap(44, 44, 44)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(checkLP))
+                    .addComponent(jLabel12))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtEndProf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(checkPHP))
+                    .addComponent(comboCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(jLabel7)
-                    .addComponent(checkSO))
+                    .addComponent(jLabel13))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtTelefoneProf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTelefoneProf, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDisciplinas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -220,7 +231,7 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
 
     private void btnCadastrarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProfessorActionPerformed
 
-        DalProfessor novoProfessor = new DalProfessor(dadosProfessor());
+        DaoProfessor novoProfessor = new DaoProfessor(dadosProfessor());
         novoProfessor.cadastrarProfessor();
 
     }//GEN-LAST:event_btnCadastrarProfessorActionPerformed
@@ -233,41 +244,26 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_checkPort4ActionPerformed
 
-    private void checkLPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkLPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_checkLPActionPerformed
-
     private void btnValidarMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidarMateriasActionPerformed
-
         disciplinasProfessor();
-
     }//GEN-LAST:event_btnValidarMateriasActionPerformed
 
-    public ArrayList<String> disciplinasProfessor() {
-        ArrayList<String> disciplinas = new ArrayList();
+    private void comboCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCursoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_comboCursoActionPerformed
 
-        if ((checkEletiva.isSelected() == false) && (checkLP.isSelected() == false) && (checkPHP.isSelected() == false)
-                && (checkSO.isSelected() == false)) {
-            JOptionPane.showMessageDialog(null, "ATENÇÃO !\n\nÉ necessario que o professor lecione pelo menos 1 materia !");
+    public void disciplinasProfessor() {
+        String nameCurso = comboCurso.getSelectedItem().toString();
+        String disciplinas = txtDisciplinas.getText();
+        ArrayList<String> addDiscipli = new ArrayList();
+
+        if (nameCurso.equals("Escolha um curso") || disciplinas.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "ATENÇÃO !\n\nCampo de cursos e/ou disciplinas invalidos !");
         } else {
-
-            if (checkEletiva.isSelected()) {
-                disciplinas.add(checkEletiva.getText());
-            }
-
-            if (checkLP.isSelected()) {
-                disciplinas.add(checkLP.getText());
-            }
-
-            if (checkPHP.isSelected()) {
-                disciplinas.add(checkPHP.getText());
-            }
-
-            if (checkSO.isSelected()) {
-                disciplinas.add(checkSO.getText());
-            }
+            addDisciplinas.add(disciplinas);
+            novoCurso = new Cursos(nameCurso,addDisciplinas);
+            JOptionPane.showMessageDialog(null, "Curso e diciplinas cadastradas com sucesso !");
         }
-        return disciplinas;
     }
 
     public Professor dadosProfessor() {
@@ -279,15 +275,16 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(null, "Campos não preenchidos");
 
         } else {
-
+            cursos.add(novoCurso);
             int registro = Integer.parseInt(txtRegistroProf.getText());
             professor = new Professor(registro, txtNomeProf.getText(),
-                    txtEndProf.getText(), txtTelefoneProf.getText(), sexo, disciplinasProfessor());
+                    txtEndProf.getText(), txtTelefoneProf.getText(), sexo, cursos);
             JOptionPane.showMessageDialog(null, "Professor Cadastrado com sucesso");
             txtRegistroProf.setText("");
             txtNomeProf.setText("");
             txtEndProf.setText("");
             txtTelefoneProf.setText("");
+            
         }
         return professor;
     }
@@ -296,16 +293,14 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarProfessor;
     private javax.swing.JButton btnValidarMaterias;
-    private javax.swing.JCheckBox checkEletiva;
-    private javax.swing.JCheckBox checkLP;
-    private javax.swing.JCheckBox checkPHP;
     private javax.swing.JCheckBox checkPort2;
     private javax.swing.JCheckBox checkPort4;
-    private javax.swing.JCheckBox checkSO;
+    private javax.swing.JComboBox<String> comboCurso;
     private javax.swing.JComboBox<String> comboSe;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -314,6 +309,7 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField txtDisciplinas;
     private javax.swing.JTextField txtEndProf;
     private javax.swing.JTextField txtNomeProf;
     private javax.swing.JTextField txtRegistroProf;

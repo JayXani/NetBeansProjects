@@ -1,12 +1,12 @@
-package dal;
+package dao;
 import java.util.ArrayList;
 import projetodaescola.Professor;
 
-public class DalProfessor{
+public class DaoProfessor{
     ArrayList<Professor> professor = new ArrayList();
     Professor novoProfessor;
 
-    public DalProfessor(Professor novoProfessor) {
+    public DaoProfessor(Professor novoProfessor) {
         this.novoProfessor = novoProfessor;
     }
     
@@ -14,6 +14,6 @@ public class DalProfessor{
         professor.add(novoProfessor);
     }
     public void excluirProfessor(){//verificar
-
+        
     }
 }
