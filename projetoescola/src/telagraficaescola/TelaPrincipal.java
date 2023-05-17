@@ -13,8 +13,10 @@ import javax.swing.JOptionPane;
  * @author Danilo
  */
 public class TelaPrincipal extends javax.swing.JFrame {
+
     DaoAluno daoAluno;
     DaoProfessor daoProfessor;
+
     /**
      * Creates new form TelaPrincipal
      */
@@ -46,12 +48,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         menuCadProf = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
-        jMenuItem3 = new javax.swing.JMenuItem();
+        menuSearhProf = new javax.swing.JMenuItem();
         jMenuItem4 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Acadêmico");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setResizable(false);
 
         desktopPrincipal.setMaximumSize(new java.awt.Dimension(600, 550));
         desktopPrincipal.setMinimumSize(new java.awt.Dimension(600, 550));
@@ -131,14 +134,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem3.setText("Pesquisar professor");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        menuSearhProf.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuSearhProf.setText("Pesquisar professor");
+        menuSearhProf.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                menuSearhProfActionPerformed(evt);
             }
         });
-        jMenu1.add(jMenuItem3);
+        jMenu1.add(menuSearhProf);
 
         jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem4.setText("Alterar dados do professor");
@@ -189,17 +192,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cadAlunoActionPerformed
 
     private void menuExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuExcluirActionPerformed
-           TelaExcluirAluno telaExcluir = new TelaExcluirAluno(this.daoAluno);
-           telaExcluir.setVisible(true);
-           desktopPrincipal.add(telaExcluir);
+        TelaExcluirAluno telaExcluir = new TelaExcluirAluno(this.daoAluno);
+        telaExcluir.setVisible(true);
+        desktopPrincipal.add(telaExcluir);
     }//GEN-LAST:event_menuExcluirActionPerformed
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    private void menuSearhProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSearhProfActionPerformed
+        int getRegistro = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o Registro do professor que deseja pesquisar: ",0));
+        if (getRegistro != 0) {
+            if (daoProfessor.pesquisarProfessor(getRegistro) == null) {
+                JOptionPane.showMessageDialog(null, "Não existe professor, com o número de registro informado, cadastrado na base de dados. ", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Professor encontrado:  " + daoProfessor.pesquisarProfessor(getRegistro).getName(), "Busca bem sucedida", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null,"Busca cancelada !");
+        }
+
+    }//GEN-LAST:event_menuSearhProfActionPerformed
 
     private void menuCadProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadProfActionPerformed
-        
+
         TelaCadastroProfessor telaCadprof = new TelaCadastroProfessor(daoProfessor);
         telaCadprof.setVisible(true);
         desktopPrincipal.add(telaCadprof);
@@ -207,10 +220,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPesquisarActionPerformed
         int getRa = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o RA do aluno que deseja pesquisar: "));
-        if(daoAluno.pesquisarAluno(getRa) == null){
-            JOptionPane.showMessageDialog(null,"Não existe aluno, com o ra informado, cadastrado na base de dados ");
-        }else{
-            JOptionPane.showMessageDialog(null,"Aluno:  " + daoAluno.pesquisarAluno(getRa).getName());
+        if (daoAluno.pesquisarAluno(getRa) == null) {
+            JOptionPane.showMessageDialog(null, "Não existe aluno, com o RA informado, cadastrado na base de dados. ");
+        } else {
+            JOptionPane.showMessageDialog(null, "Aluno:  " + daoAluno.pesquisarAluno(getRa).getName());
         }
     }//GEN-LAST:event_menuPesquisarActionPerformed
 
@@ -264,12 +277,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     public static javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenu jmenuAluno;
     private javax.swing.JMenuItem menuAlterar;
     public static javax.swing.JMenuItem menuCadProf;
     private javax.swing.JMenuItem menuExcluir;
     private javax.swing.JMenuItem menuPesquisar;
+    private javax.swing.JMenuItem menuSearhProf;
     // End of variables declaration//GEN-END:variables
 }

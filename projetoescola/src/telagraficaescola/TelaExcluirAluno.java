@@ -28,7 +28,6 @@ public class TelaExcluirAluno extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setMaximizable(true);
         setTitle("Exclusão");
         setMaximumSize(new java.awt.Dimension(600, 550));
         setMinimumSize(new java.awt.Dimension(600, 550));
