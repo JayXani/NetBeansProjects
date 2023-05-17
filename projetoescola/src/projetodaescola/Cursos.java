@@ -16,7 +16,6 @@ public class Cursos {
         return nomeCurso;
     }
     public void getDisciplinas(){
-        String teste = disciplinas.get(0);
-        System.out.println(teste);
+
     }
 }

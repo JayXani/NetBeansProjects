@@ -11,16 +11,14 @@ import projetodaescola.Professor;
  * @author Danilo
  */
 public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
-
-    private Professor professor;
     private final ArrayList<String> addDisciplinas = new ArrayList();
     private final ArrayList<Cursos> cursos = new ArrayList();
     private Cursos novoCurso;
-   DaoProfessor novoProfessor = new DaoProfessor();
+    DaoProfessor novoProfessor = new DaoProfessor();
 
     public TelaCadastroProfessor(DaoProfessor novoProfessor) {
         this.novoProfessor = novoProfessor;
-        
+
         initComponents();
     }
 
@@ -219,14 +217,7 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProfessorActionPerformed
-
-        if (disciplinasProfessor() == false) {
-            JOptionPane.showMessageDialog(null, "ATENÇÃO !\n\nCampo de cursos e/ou disciplinas invalidos !");
-        } else {
-            novoProfessor.cadastrarProfessor(dadosProfessor());
-        }
-
-
+        dadosProfessor();       
     }//GEN-LAST:event_btnCadastrarProfessorActionPerformed
 
     private void checkPort2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkPort2ActionPerformed
@@ -241,43 +232,35 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_comboCursoActionPerformed
 
-    public boolean disciplinasProfessor() {
+    public void dadosProfessor() {
+
+        String sexo = comboSe.getSelectedItem().toString();
         String nameCurso = comboCurso.getSelectedItem().toString();
         String disciplinas = txtDisciplinas.getText();
         ArrayList<String> addDiscipli = new ArrayList();
 
-        if (nameCurso.equals("Escolha um curso") || disciplinas.isEmpty()) {
-
-            return false;
-        }
-        addDisciplinas.add(disciplinas);
-        novoCurso = new Cursos(nameCurso, addDisciplinas);
-        JOptionPane.showMessageDialog(null, "Curso e diciplinas cadastradas com sucesso !");
-
-        return true;
-    }
-
-    public Professor dadosProfessor() {
-
-        String sexo = comboSe.getSelectedItem().toString();
-
         if (txtRegistroProf.getText().isEmpty() || txtNomeProf.getText().isEmpty() || txtEndProf.getText().isEmpty()
-                || txtTelefoneProf.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Campos não preenchidos");
-
+                || txtTelefoneProf.getText().isEmpty() || nameCurso.equals("Escolha um curso") || disciplinas.isEmpty()) {
+             JOptionPane.showMessageDialog(null, "ERRO !\nCampos não preenchidos corretamente !");
         } else {
+
+            addDisciplinas.add(disciplinas);
+            novoCurso = new Cursos(nameCurso, addDisciplinas);
+
             cursos.add(novoCurso);
             int registro = Integer.parseInt(txtRegistroProf.getText());
-            professor = new Professor(registro, txtNomeProf.getText(),
+
+            Professor professor = new Professor(registro, txtNomeProf.getText(),
                     txtEndProf.getText(), txtTelefoneProf.getText(), sexo, cursos);
+            novoProfessor.cadastrarProfessor(professor);
             JOptionPane.showMessageDialog(null, "Professor Cadastrado com sucesso");
+
             txtRegistroProf.setText("");
             txtNomeProf.setText("");
             txtEndProf.setText("");
             txtTelefoneProf.setText("");
 
         }
-        return professor;
     }
 
 
