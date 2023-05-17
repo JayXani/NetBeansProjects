@@ -16,8 +16,11 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
     private final ArrayList<String> addDisciplinas = new ArrayList();
     private final ArrayList<Cursos> cursos = new ArrayList();
     private Cursos novoCurso;
+   DaoProfessor novoProfessor = new DaoProfessor();
 
-    public TelaCadastroProfessor() {
+    public TelaCadastroProfessor(DaoProfessor novoProfessor) {
+        this.novoProfessor = novoProfessor;
+        
         initComponents();
     }
 
@@ -43,7 +46,6 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
         jLabel5 = new javax.swing.JLabel();
         txtEndProf = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        btnValidarMaterias = new javax.swing.JButton();
         comboCurso = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -99,13 +101,6 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
 
         jLabel10.setText("<html>\n\t<p>ATENÇÃO !<br><br>\n\tInforme as matérias lecionadas pelo professor\n\te em seguida,<br> clique em \"validar matérias\" toda vez que uma materia for colocada<br>no\n\tcampo de \"Disciplinas\". <br>\n\tApós isso, clique em \"cadastrar\"\n\t\n\t</p>\n</hmtl>\n");
 
-        btnValidarMaterias.setText("Validar Matérias");
-        btnValidarMaterias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnValidarMateriasActionPerformed(evt);
-            }
-        });
-
         comboCurso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha um curso", "ADS - Analise e Desenvolvimento de Sistemas", "AGR - Agro negócio", "LOG - Logística", " " }));
         comboCurso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,11 +155,7 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
                                 .addComponent(txtDisciplinas, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(21, 21, 21))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(36, 36, 36)
-                                        .addComponent(btnValidarMaterias)))
+                                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(28, 28, 28))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -220,9 +211,7 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
                     .addComponent(jLabel9)
                     .addComponent(comboSe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnCadastrarProfessor)
-                    .addComponent(btnValidarMaterias))
+                .addComponent(btnCadastrarProfessor)
                 .addGap(29, 29, 29))
         );
 
@@ -231,8 +220,12 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
 
     private void btnCadastrarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProfessorActionPerformed
 
-        DaoProfessor novoProfessor = new DaoProfessor();
-        novoProfessor.cadastrarProfessor(dadosProfessor());
+        if (disciplinasProfessor() == false) {
+            JOptionPane.showMessageDialog(null, "ATENÇÃO !\n\nCampo de cursos e/ou disciplinas invalidos !");
+        } else {
+            novoProfessor.cadastrarProfessor(dadosProfessor());
+        }
+
 
     }//GEN-LAST:event_btnCadastrarProfessorActionPerformed
 
@@ -244,26 +237,24 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_checkPort4ActionPerformed
 
-    private void btnValidarMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnValidarMateriasActionPerformed
-        disciplinasProfessor();
-    }//GEN-LAST:event_btnValidarMateriasActionPerformed
-
     private void comboCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCursoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_comboCursoActionPerformed
 
-    public void disciplinasProfessor() {
+    public boolean disciplinasProfessor() {
         String nameCurso = comboCurso.getSelectedItem().toString();
         String disciplinas = txtDisciplinas.getText();
         ArrayList<String> addDiscipli = new ArrayList();
 
         if (nameCurso.equals("Escolha um curso") || disciplinas.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "ATENÇÃO !\n\nCampo de cursos e/ou disciplinas invalidos !");
-        } else {
-            addDisciplinas.add(disciplinas);
-            novoCurso = new Cursos(nameCurso,addDisciplinas);
-            JOptionPane.showMessageDialog(null, "Curso e diciplinas cadastradas com sucesso !");
+
+            return false;
         }
+        addDisciplinas.add(disciplinas);
+        novoCurso = new Cursos(nameCurso, addDisciplinas);
+        JOptionPane.showMessageDialog(null, "Curso e diciplinas cadastradas com sucesso !");
+
+        return true;
     }
 
     public Professor dadosProfessor() {
@@ -284,7 +275,7 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
             txtNomeProf.setText("");
             txtEndProf.setText("");
             txtTelefoneProf.setText("");
-            
+
         }
         return professor;
     }
@@ -292,7 +283,6 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarProfessor;
-    private javax.swing.JButton btnValidarMaterias;
     private javax.swing.JCheckBox checkPort2;
     private javax.swing.JCheckBox checkPort4;
     private javax.swing.JComboBox<String> comboCurso;

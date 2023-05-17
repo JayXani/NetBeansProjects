@@ -34,7 +34,7 @@ public class GetDadosFesta {
         String nameParticipante;
         String optionStop = "Y";
         Scanner teclado2 = new Scanner(System.in);
-       
+
         System.out.println("Informe o nome da festa para busca: ");
         nomeParty = teclado2.next();
 
@@ -45,7 +45,7 @@ public class GetDadosFesta {
                 verifyOption = teclado2.next();
 
                 if (verifyOption.toUpperCase().equals("Y")) {
-                    
+
                     festaRecuperada.getNovoParticipante();
                     System.out.println("Informe qual o nome do participante: ");
                     nameParticipante = teclado2.next();
@@ -62,7 +62,7 @@ public class GetDadosFesta {
                             System.out.println("Pergunta: ");
                             getPerguntas = teclado.next();
                             perguntas.add(getPerguntas);
-                            
+
                             System.out.println("Resposta: ");
                             getRespostas = teclado.next();
                             respostas.add(getRespostas);
@@ -79,42 +79,46 @@ public class GetDadosFesta {
                 System.out.println("Sentimos muito, mas não foi possivel encontrar a festa ! :(");
             }
         }
+
         return true;
     }
 
     public boolean getMatch() {
-        ArrayList<Participantes> verificadorDeMatch;
-        ArrayList<Participantes> perguntas = dadosFesta.getNovoParticipante();
-        ArrayList<Participantes> respostas;
-        verificadorDeMatch = dadosFesta.getNovoParticipante();
-        Participantes match1;
-        int perguntasIguais = 0;
-        
-        for (int i = 1; i < verificadorDeMatch.size(); i++) {
-            match1 = dadosFesta.getNovoParticipante().get(i - 1);
-            if (match1.getPerguntas().equals(verificadorDeMatch.get(i).getPerguntas())) {
-                if (match1.getRespostas().equals(verificadorDeMatch.get(i).getRespostas())) {
-                    
-            
-                    perguntasIguais += 1;
-                    System.out.println("O match do:" + match1.getNome() + " EH o " + verificadorDeMatch.get(i).getNome() + " Com" + perguntasIguais + "respostas iguais");
-                    
-                } else {
-                    System.out.println("Nenhum match encontrado !");
+
+        ArrayList<Participantes> match1 = new ArrayList();
+
+        System.out.println("Informe o nome da festa que quer procurar o match: ");
+        String nameParty = teclado.next();
+        int i = 0;
+        for (Festas busca : novaFesta) {
+
+            if (busca.getNome().equals(nameParty)) {
+                match1.add(busca.getNovoParticipante().get(i));
+                match1.add(busca.getNovoParticipante().get(i + 1));
+
+                if (match1.get(i).getPerguntas().equals(match1.get(i + 1).getPerguntas())) {
+                    if (match1.get(i).getRespostas().equals(match1.get(i + 1).getRespostas())) {
+                        System.out.println("O match do: " + match1.get(i).getNome() + " E o/os " + match1.get(i + 1).getNome());
+                    } else {
+                        System.out.println("Não existem matchs");
+                    }
                 }
             } else {
-                System.out.println("Perguntas diferentes");
+                System.out.println("Não existem matchs na festa :(");
+
             }
+            i +=1;
         }
         return true;
     }
-    public boolean searchParty(){
+
+    public boolean searchParty() {
         int i = 1;
-        for(Festas partyRecuperada : novaFesta){
+        for (Festas partyRecuperada : novaFesta) {
             System.out.println(i + "Festa recuperada: " + partyRecuperada.getNome());
             i++;
         }
         return true;
     }
-    
+
 }

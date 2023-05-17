@@ -200,7 +200,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void menuCadProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadProfActionPerformed
         
-        TelaCadastroProfessor telaCadprof = new TelaCadastroProfessor();
+        TelaCadastroProfessor telaCadprof = new TelaCadastroProfessor(daoProfessor);
         telaCadprof.setVisible(true);
         desktopPrincipal.add(telaCadprof);
     }//GEN-LAST:event_menuCadProfActionPerformed

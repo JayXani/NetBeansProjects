@@ -41,6 +41,8 @@ public class TelaExcluirProfessor extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
+        setClosable(true);
+        setMaximizable(true);
         setMaximumSize(new java.awt.Dimension(600, 550));
         setMinimumSize(new java.awt.Dimension(600, 550));
         setPreferredSize(new java.awt.Dimension(600, 550));
