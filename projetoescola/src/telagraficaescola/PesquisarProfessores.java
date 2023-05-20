@@ -4,16 +4,24 @@
  */
 package telagraficaescola;
 
+import dao.DaoProfessor;
+import java.util.HashMap;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+import projetodaescola.Professor;
+
 /**
  *
  * @author Danilo
  */
 public class PesquisarProfessores extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form PesquisarProfessores
-     */
-    public PesquisarProfessores() {
+    DaoProfessor professor = new DaoProfessor();
+    DefaultListModel listaProfessores = new DefaultListModel();
+    HashMap<Integer, Professor> buscarProfessor;
+
+    public PesquisarProfessores(DaoProfessor professor) {
+        this.professor = professor;
         initComponents();
     }
 
@@ -26,26 +34,146 @@ public class PesquisarProfessores extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listProfessor = new javax.swing.JList<>();
+        btnSearchOneProfessor = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        btnFullProfessor = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtRegistroSearch = new javax.swing.JTextField();
+
         setClosable(true);
         setIconifiable(true);
         setMaximumSize(new java.awt.Dimension(600, 550));
         setMinimumSize(new java.awt.Dimension(600, 550));
 
+        jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
+        jLabel1.setText("Pesquisar professor (es)");
+
+        jScrollPane1.setViewportView(listProfessor);
+
+        btnSearchOneProfessor.setText("Pesquisar Professor");
+        btnSearchOneProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchOneProfessorActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("O resultado da busca aparecerá abaixo:");
+
+        btnFullProfessor.setText("Pesquisar TODOS os professores");
+        btnFullProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFullProfessorActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setText("OU");
+
+        jLabel4.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
+        jLabel4.setText("<html> \t<p>Caso deseje escolher um professor especifico,<br>Informe o registro do professor no campo abaixo,<br>\n\tem seguida clique em \"Pesquisar Professor\".\n</p> </html>");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 588, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(19, 19, 19)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel2)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(btnSearchOneProfessor, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 217, Short.MAX_VALUE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(22, 22, 22)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel4)
+                            .addComponent(txtRegistroSearch)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(47, 47, 47)
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addComponent(btnFullProfessor)))
+                .addContainerGap(16, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(149, 149, 149))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 519, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(jLabel1)
+                .addGap(56, 56, 56)
+                .addComponent(jLabel2)
+                .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtRegistroSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnSearchOneProfessor)
+                    .addComponent(jLabel3)
+                    .addComponent(btnFullProfessor))
+                .addGap(19, 19, 19))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnSearchOneProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchOneProfessorActionPerformed
+        pesquisarOneProfessor();
+    }//GEN-LAST:event_btnSearchOneProfessorActionPerformed
+
+    private void btnFullProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFullProfessorActionPerformed
+        pesquisarFullProfessor();
+    }//GEN-LAST:event_btnFullProfessorActionPerformed
+
+    private void pesquisarFullProfessor() {
+        listProfessor.removeAll();
+        buscarProfessor = professor.pesquisarFULLprofessor();
+        if (buscarProfessor == null) {
+            JOptionPane.showMessageDialog(null, "Impossivel realizar a busca pois não existem professores cadastrados");
+        } else {
+            for (int registroProfessor : buscarProfessor.keySet()) {
+                listaProfessores.addElement("Professor :" + professor.pesquisarProfessor(registroProfessor).getName());
+                listProfessor.setModel(listaProfessores);
+            }
+        }
+    }
+
+    private void pesquisarOneProfessor() {
+        listProfessor.removeAll();
+        if (txtRegistroSearch.getText().isEmpty() || txtRegistroSearch.getText().matches("[0-9]+") == false) {
+            JOptionPane.showMessageDialog(null, "ERRO !\nCampo não preenchido corretamente");
+        } else {
+            int registro = Integer.parseInt(txtRegistroSearch.getText());
+            if (professor.pesquisarProfessor(registro) == null) {
+                JOptionPane.showMessageDialog(null, "Professor não encontrado na base de dados !");
+            } else {
+                listaProfessores.addElement("Professor : " + professor.pesquisarProfessor(registro).getName());
+                listProfessor.setModel(listaProfessores);
+            }
+        }
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnFullProfessor;
+    private javax.swing.JButton btnSearchOneProfessor;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JList<String> listProfessor;
+    private javax.swing.JTextField txtRegistroSearch;
     // End of variables declaration//GEN-END:variables
 }

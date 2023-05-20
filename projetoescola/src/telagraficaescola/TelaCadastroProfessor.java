@@ -2,6 +2,7 @@ package telagraficaescola;
 
 import dao.DaoProfessor;
 import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import projetodaescola.Cursos;
 import projetodaescola.Professor;
@@ -11,10 +12,12 @@ import projetodaescola.Professor;
  * @author Danilo
  */
 public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
+
     private final ArrayList<String> addDisciplinas = new ArrayList();
     private final ArrayList<Cursos> cursos = new ArrayList();
     private Cursos novoCurso;
     DaoProfessor novoProfessor = new DaoProfessor();
+    private HashMap<Integer, Professor> buscarProfessor;
 
     public TelaCadastroProfessor(DaoProfessor novoProfessor) {
         this.novoProfessor = novoProfessor;
@@ -163,7 +166,7 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(148, 148, 148))
+                .addGap(167, 167, 167))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,7 +220,7 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarProfessorActionPerformed
-        dadosProfessor();       
+        dadosProfessor();
     }//GEN-LAST:event_btnCadastrarProfessorActionPerformed
 
     private void checkPort2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkPort2ActionPerformed
@@ -238,27 +241,33 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
         String nameCurso = comboCurso.getSelectedItem().toString();
         String disciplinas = txtDisciplinas.getText();
         ArrayList<String> addDiscipli = new ArrayList();
+        
 
         if (txtRegistroProf.getText().isEmpty() || txtNomeProf.getText().isEmpty() || txtEndProf.getText().isEmpty()
                 || txtTelefoneProf.getText().isEmpty() || nameCurso.equals("Escolha um curso") || disciplinas.isEmpty()) {
-             JOptionPane.showMessageDialog(null, "ERRO !\nCampos não preenchidos corretamente !");
+            JOptionPane.showMessageDialog(null, "ERRO !\nCampos não preenchidos corretamente !");
         } else {
-
-            addDisciplinas.add(disciplinas);
-            novoCurso = new Cursos(nameCurso, addDisciplinas);
-
-            cursos.add(novoCurso);
             int registro = Integer.parseInt(txtRegistroProf.getText());
+            buscarProfessor = novoProfessor.pesquisarFULLprofessor();
+            if (buscarProfessor != null && buscarProfessor.get(registro) != null) {
+                JOptionPane.showMessageDialog(null, "ATENÇÃO !\nImpossivel fazer o cadastro de um novo professor com o registro informado !"
+                        + "\nPois existe um professor com o mesmo registro.\n\n" + "Registro correspondente a: " + novoProfessor.pesquisarProfessor(registro).getName());
+            } else {
+                addDisciplinas.add(disciplinas);
+                novoCurso = new Cursos(nameCurso, addDisciplinas);
 
-            Professor professor = new Professor(registro, txtNomeProf.getText(),
-                    txtEndProf.getText(), txtTelefoneProf.getText(), sexo, cursos);
-            novoProfessor.cadastrarProfessor(professor);
-            JOptionPane.showMessageDialog(null, "Professor Cadastrado com sucesso");
+                cursos.add(novoCurso);
 
-            txtRegistroProf.setText("");
-            txtNomeProf.setText("");
-            txtEndProf.setText("");
-            txtTelefoneProf.setText("");
+                Professor professor = new Professor(registro, txtNomeProf.getText(),
+                        txtEndProf.getText(), txtTelefoneProf.getText(), sexo, cursos);
+                novoProfessor.cadastrarProfessor(professor);
+                JOptionPane.showMessageDialog(null, "Professor Cadastrado com sucesso");
+
+                txtRegistroProf.setText("");
+                txtNomeProf.setText("");
+                txtEndProf.setText("");
+                txtTelefoneProf.setText("");
+            }
 
         }
     }

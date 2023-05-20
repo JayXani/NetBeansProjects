@@ -5,6 +5,7 @@
 package telagraficaescola;
 
 import dao.DaoAluno;
+import java.util.HashMap;
 import projetodaescola.*;
 
 import javax.swing.JOptionPane;
@@ -14,15 +15,17 @@ import javax.swing.JOptionPane;
  * @author Danilo
  */
 public class TelaCadastroAluno extends javax.swing.JInternalFrame {
-    DaoAluno da1 = new DaoAluno();
-    
+
+    DaoAluno aluno = new DaoAluno();
+    private HashMap<Integer, Aluno> buscarAluno;
 
     /**
      * Creates new form TelaCadastroAluno
-     * @param da1
+     *
+     * @param aluno
      */
-    public TelaCadastroAluno(DaoAluno da1) {
-        this.da1 = da1;
+    public TelaCadastroAluno(DaoAluno aluno) {
+        this.aluno = aluno;
         initComponents();
     }
 
@@ -177,18 +180,22 @@ public class TelaCadastroAluno extends javax.swing.JInternalFrame {
         if (txtRA.getText().isEmpty() || txtNomeAluno.getText().isEmpty() || txtEndAluno.getText().isEmpty()
                 || txtTelefoneAluno.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Campos não preenchidos");
-
         } else {
             int ra = Integer.parseInt(txtRA.getText());
-            Aluno aluno1 = new Aluno(ra, txtNomeAluno.getText(),
-                    txtEndAluno.getText(), txtTelefoneAluno.getText(), sexo);
-            da1.cadastrarAluno(aluno1);
-            JOptionPane.showMessageDialog(null, "Aluno: " + aluno1.getName() + "\nCadastrado com sucesso");
-            txtRA.setText("");
-            txtNomeAluno.setText("");
-            txtEndAluno.setText("");
-            txtTelefoneAluno.setText("");
-
+            buscarAluno = aluno.pesquisarFullAluno();
+            if (buscarAluno != null && buscarAluno.get(ra) != null) {
+                JOptionPane.showMessageDialog(null, "ATENÇÃO !\nImpossivel fazer o cadastro de um novo aluno com o RA informado !"
+                        + "\nPois existe um aluno com o mesmo RA.\n\n" + "RA correspondente a: " + aluno.pesquisarAluno(ra).getName());
+            } else {
+                Aluno aluno1 = new Aluno(ra, txtNomeAluno.getText(),
+                        txtEndAluno.getText(), txtTelefoneAluno.getText(), sexo);
+                aluno.cadastrarAluno(aluno1);
+                JOptionPane.showMessageDialog(null, "Aluno: " + aluno1.getName() + "\nCadastrado com sucesso");
+                txtRA.setText("");
+                txtNomeAluno.setText("");
+                txtEndAluno.setText("");
+                txtTelefoneAluno.setText("");
+            }
         }
     }//GEN-LAST:event_btnCadastrarActionPerformed
 

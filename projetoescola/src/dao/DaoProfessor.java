@@ -13,8 +13,10 @@ public class DaoProfessor{
         professor.remove(registroDeExclusao);
     }
     public Professor pesquisarProfessor(int registroSearch){
-        if(professor.isEmpty()) return null;
-        return professor.get(registroSearch);
+        return (professor.isEmpty()? null : professor.get(registroSearch));
+    }
+    public HashMap pesquisarFULLprofessor(){
+        return (professor.isEmpty() ? null : professor);
     }
     public void alterarProfessor(){
         

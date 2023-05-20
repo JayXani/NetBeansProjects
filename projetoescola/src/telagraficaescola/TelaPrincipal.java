@@ -198,17 +198,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuExcluirActionPerformed
 
     private void menuSearhProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSearhProfActionPerformed
-        int getRegistro = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o Registro do professor que deseja pesquisar: ",0));
-        if (getRegistro != 0) {
-            if (daoProfessor.pesquisarProfessor(getRegistro) == null) {
-                JOptionPane.showMessageDialog(null, "Não existe professor, com o número de registro informado, cadastrado na base de dados. ", "ATENÇÃO", JOptionPane.WARNING_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "Professor encontrado:  " + daoProfessor.pesquisarProfessor(getRegistro).getName(), "Busca bem sucedida", JOptionPane.INFORMATION_MESSAGE);
-            }
-        }else{
-            JOptionPane.showMessageDialog(null,"Busca cancelada !");
-        }
-
+        PesquisarProfessores telaPesquisarProfessor = new PesquisarProfessores(daoProfessor);
+        telaPesquisarProfessor.setVisible(true);
+        desktopPrincipal.add(telaPesquisarProfessor);
     }//GEN-LAST:event_menuSearhProfActionPerformed
 
     private void menuCadProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuCadProfActionPerformed
@@ -219,12 +211,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuCadProfActionPerformed
 
     private void menuPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPesquisarActionPerformed
-        int getRa = Integer.parseInt(JOptionPane.showInputDialog(null, "Informe o RA do aluno que deseja pesquisar: "));
-        if (daoAluno.pesquisarAluno(getRa) == null) {
-            JOptionPane.showMessageDialog(null, "Não existe aluno, com o RA informado, cadastrado na base de dados. ");
-        } else {
-            JOptionPane.showMessageDialog(null, "Aluno:  " + daoAluno.pesquisarAluno(getRa).getName());
-        }
+        PesquisarAluno searchAluno = new PesquisarAluno();
+        searchAluno.setVisible(true);
+        desktopPrincipal.add(searchAluno);
     }//GEN-LAST:event_menuPesquisarActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
