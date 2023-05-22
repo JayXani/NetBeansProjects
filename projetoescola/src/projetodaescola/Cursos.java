@@ -3,7 +3,7 @@ package projetodaescola;
 
 import java.util.ArrayList;
 
-public class Cursos {
+public final class Cursos {
     private final String nomeCurso;
     private final ArrayList <String> disciplinas;
     

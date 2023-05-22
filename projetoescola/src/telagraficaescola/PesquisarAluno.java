@@ -7,8 +7,8 @@ package telagraficaescola;
 import dao.DaoAluno;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 import projetodaescola.Aluno;
-
 
 /**
  *
@@ -16,13 +16,17 @@ import projetodaescola.Aluno;
  */
 public class PesquisarAluno extends javax.swing.JInternalFrame {
 
-    DaoAluno professor = new DaoAluno();
+    DaoAluno aluno = new DaoAluno();
     DefaultListModel listaAlunos = new DefaultListModel();
     HashMap<Integer, Aluno> buscarAluno;
+
     /**
      * Creates new form PesquisarAluno
+     *
+     * @param aluno
      */
-    public PesquisarAluno() {
+    public PesquisarAluno(DaoAluno aluno) {
+        this.aluno = aluno;
         initComponents();
     }
 
@@ -37,7 +41,7 @@ public class PesquisarAluno extends javax.swing.JInternalFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        listAluno = new javax.swing.JList<>();
+        listaAluno = new javax.swing.JList<>();
         btnSearchOneAluno = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         btnFullAluno = new javax.swing.JButton();
@@ -52,7 +56,7 @@ public class PesquisarAluno extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         jLabel1.setText("Pesquisar Aluno (s)");
 
-        jScrollPane1.setViewportView(listAluno);
+        jScrollPane1.setViewportView(listaAluno);
 
         btnSearchOneAluno.setText("Pesquisar Aluno");
         btnSearchOneAluno.addActionListener(new java.awt.event.ActionListener() {
@@ -73,7 +77,7 @@ public class PesquisarAluno extends javax.swing.JInternalFrame {
         jLabel3.setText("OU");
 
         jLabel4.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
-        jLabel4.setText("<html> \t<p>Caso deseje escolher um professor especifico,<br>Informe o registro do aluno no campo abaixo,<br>\n\tem seguida clique em \"Pesquisar Aluno\".\n</p> </html>");
+        jLabel4.setText("<html> \t<p>Caso deseje escolher um ALUNO em especifico,<br>Informe o RA do aluno no campo abaixo,<br> \tem seguida clique em \"Pesquisar Aluno\". </p> </html>");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,11 +88,11 @@ public class PesquisarAluno extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel4)
-                    .addComponent(txtRaSearch))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtRaSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
@@ -96,7 +100,7 @@ public class PesquisarAluno extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(btnSearchOneAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(39, 39, 39)
                 .addComponent(btnFullAluno)
@@ -128,12 +132,39 @@ public class PesquisarAluno extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSearchOneAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchOneAlunoActionPerformed
-   
+        pesquisarOneProfessor();
     }//GEN-LAST:event_btnSearchOneAlunoActionPerformed
 
     private void btnFullAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFullAlunoActionPerformed
-    
+        pesquisarFullAlunos();
     }//GEN-LAST:event_btnFullAlunoActionPerformed
+    private void pesquisarFullAlunos() {
+        listaAluno.removeAll();
+        buscarAluno = aluno.pesquisarFullAluno();
+        if (buscarAluno == null) {
+            JOptionPane.showMessageDialog(null, "Impossivel realizar a busca pois não existem professores cadastrados");
+        } else {
+            for (int RaAluno : buscarAluno.keySet()) {
+                listaAlunos.addElement("Aluno :" + aluno.pesquisarAluno(RaAluno).getName());
+                listaAluno.setModel(listaAlunos);
+            }
+        }
+    }
+
+    private void pesquisarOneProfessor() {
+        listaAluno.removeAll();
+        if (txtRaSearch.getText().isEmpty() || txtRaSearch.getText().matches("[0-9]+") == false) {
+            JOptionPane.showMessageDialog(null, "ERRO !\nCampo não preenchido corretamente");
+        } else {
+            int ra = Integer.parseInt(txtRaSearch.getText());
+            if (aluno.pesquisarAluno(ra) == null) {
+                JOptionPane.showMessageDialog(null, "Aluno não encontrado na base de dados !");
+            } else {
+                listaAlunos.addElement("Professor : " + aluno.pesquisarAluno(ra).getName());
+                listaAluno.setModel(listaAlunos);
+            }
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -144,7 +175,7 @@ public class PesquisarAluno extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> listAluno;
+    private javax.swing.JList<String> listaAluno;
     private javax.swing.JTextField txtRaSearch;
     // End of variables declaration//GEN-END:variables
 }

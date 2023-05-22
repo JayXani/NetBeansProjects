@@ -1,7 +1,7 @@
 
 package projetodaescola;
 
-public class Aluno extends Pessoa{
+public final class Aluno extends Pessoa{
   
     private final int ra;
 

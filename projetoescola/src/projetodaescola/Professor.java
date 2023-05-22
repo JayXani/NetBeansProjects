@@ -3,7 +3,7 @@ package projetodaescola;
 
 import java.util.ArrayList;
 
-public class Professor extends Pessoa{
+public final class Professor extends Pessoa{
     private final int registroProf;
     ArrayList<Cursos> disciplinas = new ArrayList();
     

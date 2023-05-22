@@ -101,6 +101,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         menuAlterar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menuAlterar.setText("Alterar informações do aluno");
+        menuAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuAlterarActionPerformed(evt);
+            }
+        });
         jmenuAluno.add(menuAlterar);
 
         menuPesquisar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -211,7 +216,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuCadProfActionPerformed
 
     private void menuPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPesquisarActionPerformed
-        PesquisarAluno searchAluno = new PesquisarAluno();
+        PesquisarAluno searchAluno = new PesquisarAluno(this.daoAluno);
         searchAluno.setVisible(true);
         desktopPrincipal.add(searchAluno);
     }//GEN-LAST:event_menuPesquisarActionPerformed
@@ -221,6 +226,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         telaExcluirProf.setVisible(true);
         desktopPrincipal.add(telaExcluirProf);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void menuAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlterarActionPerformed
+        
+        
+    }//GEN-LAST:event_menuAlterarActionPerformed
 
     /**
      * @param args the command line arguments
