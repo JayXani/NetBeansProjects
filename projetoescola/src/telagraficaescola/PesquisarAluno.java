@@ -142,7 +142,7 @@ public class PesquisarAluno extends javax.swing.JInternalFrame {
         listaAluno.removeAll();
         buscarAluno = aluno.pesquisarFullAluno();
         if (buscarAluno == null) {
-            JOptionPane.showMessageDialog(null, "Impossivel realizar a busca pois não existem professores cadastrados");
+            JOptionPane.showMessageDialog(null, "Impossivel realizar a busca pois não existem alunos cadastrados");
         } else {
             for (int RaAluno : buscarAluno.keySet()) {
                 listaAlunos.addElement("Aluno :" + aluno.pesquisarAluno(RaAluno).getName());
@@ -160,7 +160,7 @@ public class PesquisarAluno extends javax.swing.JInternalFrame {
             if (aluno.pesquisarAluno(ra) == null) {
                 JOptionPane.showMessageDialog(null, "Aluno não encontrado na base de dados !");
             } else {
-                listaAlunos.addElement("Professor : " + aluno.pesquisarAluno(ra).getName());
+                listaAlunos.addElement("Aluno : " + aluno.pesquisarAluno(ra).getName());
                 listaAluno.setModel(listaAlunos);
             }
         }
