@@ -6,7 +6,6 @@ package telagraficaescola;
 
 import dao.DaoAluno;
 import dao.DaoProfessor;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -43,13 +42,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jmenuAluno = new javax.swing.JMenu();
         cadAluno = new javax.swing.JMenuItem();
         menuExcluir = new javax.swing.JMenuItem();
-        menuAlterar = new javax.swing.JMenuItem();
+        menuAlterarAluno = new javax.swing.JMenuItem();
         menuPesquisar = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         menuCadProf = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         menuSearhProf = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        jalterarProfessor = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema Acadêmico");
@@ -81,6 +80,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel3.setText("<html> \t<p> \tTodas as opções referente aos alunos e <br> \tprofessores, podem ser encontradas <br> \tno canto superior esquerdo.  \t</p> </html>");
 
         jmenuAluno.setText("Area Aluno");
+        jmenuAluno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmenuAlunoActionPerformed(evt);
+            }
+        });
 
         cadAluno.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         cadAluno.setText("Cadastrar novo aluno");
@@ -100,14 +104,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jmenuAluno.add(menuExcluir);
 
-        menuAlterar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuAlterar.setText("Alterar informações do aluno");
-        menuAlterar.addActionListener(new java.awt.event.ActionListener() {
+        menuAlterarAluno.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuAlterarAluno.setText("Alterar informações do aluno");
+        menuAlterarAluno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuAlterarActionPerformed(evt);
+                menuAlterarAlunoActionPerformed(evt);
             }
         });
-        jmenuAluno.add(menuAlterar);
+        jmenuAluno.add(menuAlterarAluno);
 
         menuPesquisar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menuPesquisar.setText("Pesquisar aluno");
@@ -149,9 +153,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(menuSearhProf);
 
-        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem4.setText("Alterar dados do professor");
-        jMenu1.add(jMenuItem4);
+        jalterarProfessor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jalterarProfessor.setText("Alterar dados do professor");
+        jMenu1.add(jalterarProfessor);
 
         jMenuBar1.add(jMenu1);
 
@@ -228,10 +232,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         desktopPrincipal.add(telaExcluirProf);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void menuAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlterarActionPerformed
-        
-        
-    }//GEN-LAST:event_menuAlterarActionPerformed
+    private void menuAlterarAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAlterarAlunoActionPerformed
+        TelaAlterarAluno alterarAluno = new TelaAlterarAluno(daoAluno);
+        alterarAluno.setVisible(true);
+        desktopPrincipal.add(alterarAluno);
+    }//GEN-LAST:event_menuAlterarAlunoActionPerformed
+
+    private void jmenuAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenuAlunoActionPerformed
+
+    }//GEN-LAST:event_jmenuAlunoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -277,9 +286,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     public static javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenu jmenuAluno;
-    private javax.swing.JMenuItem menuAlterar;
+    private javax.swing.JMenuItem jalterarProfessor;
+    public static javax.swing.JMenu jmenuAluno;
+    private javax.swing.JMenuItem menuAlterarAluno;
     public static javax.swing.JMenuItem menuCadProf;
     private javax.swing.JMenuItem menuExcluir;
     private javax.swing.JMenuItem menuPesquisar;

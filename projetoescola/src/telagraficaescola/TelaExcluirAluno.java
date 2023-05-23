@@ -138,20 +138,26 @@ public class TelaExcluirAluno extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnVerificarActionPerformed
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
-
-        int ra = Integer.parseInt(JOptionPane.showInputDialog("Por questões de segurança, informe o RA do aluno novamente: "));
-        if (dadosAluno.pesquisarAluno(ra) != null) {
-            int exclusao = JOptionPane.showConfirmDialog(null,"Deseja excluir o aluno : " + dadosAluno.pesquisarAluno(ra).getName(),"ATENÇÃO", JOptionPane.YES_NO_OPTION);
-            if (exclusao == JOptionPane.YES_OPTION) {
-                dadosAluno.excluirAluno(ra);
-                JOptionPane.showMessageDialog(null, "Aluno Excluído com sucesso");
-                lblResultado.setText("");
+        int ra;
+        String verificadorRa = JOptionPane.showInputDialog("Por questões de segurança, informe o RA do aluno novamente: ");
+        if (verificadorRa.matches("[0-9]+")) {
+            ra = Integer.parseInt(verificadorRa.toString());
+            if (dadosAluno.pesquisarAluno(ra) != null) {
+                int exclusao = JOptionPane.showConfirmDialog(null, "Deseja excluir o aluno : " + dadosAluno.pesquisarAluno(ra).getName(), "ATENÇÃO", JOptionPane.YES_NO_OPTION);
+                if (exclusao == JOptionPane.YES_OPTION) {
+                    dadosAluno.excluirAluno(ra);
+                    JOptionPane.showMessageDialog(null, "Aluno Excluído com sucesso");
+                    lblResultado.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Aluno não excluído");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Aluno não excluído");
+                JOptionPane.showMessageDialog(null, "Impossivel excluir um aluno inexistente !");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Impossivel excluir um aluno inexistente !");
+        }else{
+            JOptionPane.showMessageDialog(null, "Informe um valor númerico !");
         }
+
     }//GEN-LAST:event_btnApagarActionPerformed
 
 

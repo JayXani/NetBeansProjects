@@ -16,15 +16,14 @@ public class DaoAluno {
     }
 
     public Aluno pesquisarAluno(int indexRa) {//verificar
-       return (aluno.isEmpty()? null : aluno.get(indexRa));
+        return (aluno.isEmpty() ? null : aluno.get(indexRa));
     }
 
     public HashMap pesquisarFullAluno() {
-        return (aluno.isEmpty()? null : aluno);
+        return (aluno.isEmpty() ? null : aluno);
     }
 
-    public void alterarAluno(int indexAluno) {//verificar
-
+    public void alterarAluno(int indexAluno,Aluno oldAluno, Aluno alunoAlterado) {//verificar
+        aluno.replace(indexAluno,oldAluno, alunoAlterado);
     }
-
 }
