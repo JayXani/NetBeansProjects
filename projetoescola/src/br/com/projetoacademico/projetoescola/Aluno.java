@@ -1,5 +1,5 @@
 
-package projetodaescola;
+package br.com.projetoacademico.projetoescola;
 
 public final class Aluno extends Pessoa{
   

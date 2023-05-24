@@ -1,4 +1,4 @@
-package projetodaescola;
+package br.com.projetoacademico.projetoescola;
 
 public class Pessoa {
     private String name;

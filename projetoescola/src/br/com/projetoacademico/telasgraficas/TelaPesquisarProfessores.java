@@ -2,25 +2,26 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package telagraficaescola;
+package br.com.projetoacademico.telasgraficas;
 
-import dao.DaoProfessor;
+
+import br.com.projetoacademico.dao.DaoProfessor;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import projetodaescola.Professor;
+import br.com.projetoacademico.projetoescola.Professor;
 
 /**
  *
  * @author Danilo
  */
-public class PesquisarProfessores extends javax.swing.JInternalFrame {
+public class TelaPesquisarProfessores extends javax.swing.JInternalFrame{
 
     DaoProfessor professor = new DaoProfessor();
     DefaultListModel listaProfessores = new DefaultListModel();
     HashMap<Integer, Professor> buscarProfessor;
 
-    public PesquisarProfessores(DaoProfessor professor) {
+    public TelaPesquisarProfessores(DaoProfessor professor) {
         this.professor = professor;
         initComponents();
     }
@@ -133,10 +134,10 @@ public class PesquisarProfessores extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSearchOneProfessorActionPerformed
 
     private void btnFullProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFullProfessorActionPerformed
-        pesquisarFullProfessor();
+        pesquisarFullProfessores();
     }//GEN-LAST:event_btnFullProfessorActionPerformed
 
-    private void pesquisarFullProfessor() {
+    public void pesquisarFullProfessores() {
         listProfessor.removeAll();
         buscarProfessor = professor.pesquisarFULLprofessor();
         if (buscarProfessor == null) {
@@ -149,7 +150,8 @@ public class PesquisarProfessores extends javax.swing.JInternalFrame {
         }
     }
 
-    private void pesquisarOneProfessor() {
+
+    public void pesquisarOneProfessor() {
         listProfessor.removeAll();
         if (txtRegistroSearch.getText().isEmpty() || txtRegistroSearch.getText().matches("[0-9]+") == false) {
             JOptionPane.showMessageDialog(null, "ERRO !\nCampo não preenchido corretamente");

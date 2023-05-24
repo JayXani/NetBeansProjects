@@ -1,11 +1,11 @@
-package telagraficaescola;
+package br.com.projetoacademico.telasgraficas;
 
-import dao.DaoProfessor;
+import br.com.projetoacademico.dao.DaoProfessor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
-import projetodaescola.Cursos;
-import projetodaescola.Professor;
+import br.com.projetoacademico.projetoescola.Cursos;
+import br.com.projetoacademico.projetoescola.Professor;
 
 /**
  *
@@ -267,6 +267,7 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
                 txtNomeProf.setText("");
                 txtEndProf.setText("");
                 txtTelefoneProf.setText("");
+                txtDisciplinas.setText("");
             }
 
         }

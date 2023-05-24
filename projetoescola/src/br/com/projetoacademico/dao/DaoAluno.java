@@ -1,7 +1,7 @@
-package dao;
+package br.com.projetoacademico.dao;
 
 import java.util.HashMap;
-import projetodaescola.Aluno;
+import br.com.projetoacademico.projetoescola.Aluno;
 
 public class DaoAluno {
 

@@ -1,6 +1,6 @@
-package telagraficaescola;
+package br.com.projetoacademico.telasgraficas;
 
-import dao.DaoAluno;
+import br.com.projetoacademico.dao.DaoAluno;
 import javax.swing.JOptionPane;
 
 public class TelaExcluirAluno extends javax.swing.JInternalFrame {

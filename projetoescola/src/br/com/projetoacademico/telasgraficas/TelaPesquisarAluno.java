@@ -2,19 +2,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package telagraficaescola;
+package br.com.projetoacademico.telasgraficas;
 
-import dao.DaoAluno;
+import br.com.projetoacademico.dao.DaoAluno;
 import java.util.HashMap;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import projetodaescola.Aluno;
+import br.com.projetoacademico.projetoescola.Aluno;
 
 /**
  *
  * @author Danilo
  */
-public class PesquisarAluno extends javax.swing.JInternalFrame {
+public class TelaPesquisarAluno extends javax.swing.JInternalFrame  {
 
     DaoAluno aluno = new DaoAluno();
     DefaultListModel listaAlunos = new DefaultListModel();
@@ -25,7 +25,7 @@ public class PesquisarAluno extends javax.swing.JInternalFrame {
      *
      * @param aluno
      */
-    public PesquisarAluno(DaoAluno aluno) {
+    public TelaPesquisarAluno(DaoAluno aluno) {
         this.aluno = aluno;
         initComponents();
     }

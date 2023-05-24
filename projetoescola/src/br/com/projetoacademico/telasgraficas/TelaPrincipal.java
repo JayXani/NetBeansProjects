@@ -2,10 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package telagraficaescola;
+package br.com.projetoacademico.telasgraficas;
 
-import dao.DaoAluno;
-import dao.DaoProfessor;
+import br.com.projetoacademico.dao.DaoAluno;
+import br.com.projetoacademico.dao.DaoProfessor;
 
 /**
  *
@@ -57,7 +57,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         desktopPrincipal.setMaximumSize(new java.awt.Dimension(600, 550));
         desktopPrincipal.setMinimumSize(new java.awt.Dimension(600, 550));
-        desktopPrincipal.setPreferredSize(new java.awt.Dimension(600, 550));
 
         javax.swing.GroupLayout desktopPrincipalLayout = new javax.swing.GroupLayout(desktopPrincipal);
         desktopPrincipal.setLayout(desktopPrincipalLayout);
@@ -208,7 +207,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuExcluirActionPerformed
 
     private void menuSearhProfActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuSearhProfActionPerformed
-        PesquisarProfessores telaPesquisarProfessor = new PesquisarProfessores(daoProfessor);
+        TelaPesquisarProfessores telaPesquisarProfessor = new TelaPesquisarProfessores(daoProfessor);
         telaPesquisarProfessor.setVisible(true);
         desktopPrincipal.add(telaPesquisarProfessor);
     }//GEN-LAST:event_menuSearhProfActionPerformed
@@ -221,7 +220,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuCadProfActionPerformed
 
     private void menuPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPesquisarActionPerformed
-        PesquisarAluno searchAluno = new PesquisarAluno(this.daoAluno);
+        TelaPesquisarAluno searchAluno = new TelaPesquisarAluno(this.daoAluno);
         searchAluno.setVisible(true);
         desktopPrincipal.add(searchAluno);
     }//GEN-LAST:event_menuPesquisarActionPerformed
