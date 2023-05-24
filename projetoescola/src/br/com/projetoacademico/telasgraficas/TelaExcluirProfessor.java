@@ -12,9 +12,12 @@ import javax.swing.JOptionPane;
  * @author Danilo
  */
 public class TelaExcluirProfessor extends javax.swing.JInternalFrame {
+
     DaoProfessor dadosProfessor;
+
     /**
      * Creates new form TelaExcluirProfessor
+     *
      * @param dadosProfessor
      */
     public TelaExcluirProfessor(DaoProfessor dadosProfessor) {
@@ -151,19 +154,25 @@ public class TelaExcluirProfessor extends javax.swing.JInternalFrame {
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
 
-        int registro = Integer.parseInt(JOptionPane.showInputDialog("Por questões de segurança, informe o registro do professor novamente: "));
-        if (dadosProfessor.pesquisarProfessor(registro) != null) {
-            int exclusao = JOptionPane.showConfirmDialog(null,"Deseja excluir o Professor : " + dadosProfessor.pesquisarProfessor(registro).getName(),"ATENÇÃO", JOptionPane.YES_NO_OPTION);
-            if (exclusao == JOptionPane.YES_OPTION) {
-                dadosProfessor.excluirProfessor(registro);
-                JOptionPane.showMessageDialog(null, "Professor Excluído com sucesso");
-                lblResultadoProf.setText("");
+        if (!txtRegistroSearch.getText().isEmpty()) {
+            int registro = Integer.parseInt(txtRegistroSearch.getText());
+            if (dadosProfessor.pesquisarProfessor(registro) != null) {
+                int exclusao = JOptionPane.showConfirmDialog(null, "Deseja excluir o Professor : " + dadosProfessor.pesquisarProfessor(registro).getName(), "ATENÇÃO", JOptionPane.YES_NO_OPTION);
+                if (exclusao == JOptionPane.YES_OPTION) {
+                    dadosProfessor.excluirProfessor(registro);
+                    JOptionPane.showMessageDialog(null, "Professor Excluído com sucesso");
+                    lblResultadoProf.setText("");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Professor não excluído");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Professor não excluído");
+                JOptionPane.showMessageDialog(null, "Impossivel excluir um Professor inexistente !");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Impossivel excluir um Professor inexistente !");
+        }else{
+            JOptionPane.showMessageDialog(null, "Deve-se informar o registro do professor que será excluído.");
         }
+
+
     }//GEN-LAST:event_btnApagarActionPerformed
 
 

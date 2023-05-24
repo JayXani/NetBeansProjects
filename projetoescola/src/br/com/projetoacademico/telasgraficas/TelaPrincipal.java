@@ -154,6 +154,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jalterarProfessor.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jalterarProfessor.setText("Alterar dados do professor");
+        jalterarProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jalterarProfessorActionPerformed(evt);
+            }
+        });
         jMenu1.add(jalterarProfessor);
 
         jMenuBar1.add(jMenu1);
@@ -240,6 +245,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jmenuAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmenuAlunoActionPerformed
 
     }//GEN-LAST:event_jmenuAlunoActionPerformed
+
+    private void jalterarProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jalterarProfessorActionPerformed
+        TelaAlterarProfessor alterarProfessor = new TelaAlterarProfessor(daoProfessor);
+        alterarProfessor.setVisible(true);
+        desktopPrincipal.add(alterarProfessor);
+        
+    }//GEN-LAST:event_jalterarProfessorActionPerformed
 
     /**
      * @param args the command line arguments

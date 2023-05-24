@@ -258,8 +258,11 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel10">
       <Properties>
-        <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&#x9;&lt;p&gt;ATEN&#xc7;&#xc3;O !&lt;br&gt;&lt;br&gt;&#xa;&#x9;Informe as mat&#xe9;rias lecionadas pelo professor&#xa;&#x9;e em seguida,&lt;br&gt; clique em &quot;validar mat&#xe9;rias&quot; toda vez que uma materia for colocada&lt;br&gt;no&#xa;&#x9;campo de &quot;Disciplinas&quot;. &lt;br&gt;&#xa;&#x9;Ap&#xf3;s isso, clique em &quot;cadastrar&quot;&#xa;&#x9;&#xa;&#x9;&lt;/p&gt;&#xa;&lt;/hmtl&gt;&#xa;"/>
+        <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;&#x9;&lt;p&gt;ATEN&#xc7;&#xc3;O !&lt;br&gt;&lt;br&gt;&#xa;&#x9;Todos os campos devem estar preenchidos.&#xa;&#x9;&#xa;&#x9;&lt;/p&gt;&#xa;&lt;/hmtl&gt;&#xa;"/>
       </Properties>
+      <AccessibilityProperties>
+        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="ATEN&#xc7;&#xc3;O !  Todos os campos devem ser preenchidos."/>
+      </AccessibilityProperties>
     </Component>
     <Component class="javax.swing.JComboBox" name="comboCurso">
       <Properties>

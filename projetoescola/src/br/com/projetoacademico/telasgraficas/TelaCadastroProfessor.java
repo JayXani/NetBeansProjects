@@ -100,7 +100,7 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
 
         jLabel5.setText(" (Apenas nome da rua e número)");
 
-        jLabel10.setText("<html>\n\t<p>ATENÇÃO !<br><br>\n\tInforme as matérias lecionadas pelo professor\n\te em seguida,<br> clique em \"validar matérias\" toda vez que uma materia for colocada<br>no\n\tcampo de \"Disciplinas\". <br>\n\tApós isso, clique em \"cadastrar\"\n\t\n\t</p>\n</hmtl>\n");
+        jLabel10.setText("<html>\n\t<p>ATENÇÃO !<br><br>\n\tTodos os campos devem estar preenchidos.\n\t\n\t</p>\n</hmtl>\n");
 
         comboCurso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Escolha um curso", "ADS - Analise e Desenvolvimento de Sistemas", "AGR - Agro negócio", "LOG - Logística", " " }));
         comboCurso.addActionListener(new java.awt.event.ActionListener() {
@@ -215,6 +215,8 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
                 .addComponent(btnCadastrarProfessor)
                 .addGap(29, 29, 29))
         );
+
+        jLabel10.getAccessibleContext().setAccessibleName("ATENÇÃO !  Todos os campos devem ser preenchidos.");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

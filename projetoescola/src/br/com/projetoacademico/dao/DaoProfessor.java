@@ -23,7 +23,7 @@ public class DaoProfessor {
         return (professor.isEmpty() ? null : professor);
     }
 
-    public void alterarProfessor() {
-
+      public void alterarProfessor(int indexAluno,Professor oldAluno, Professor alunoAlterado) {
+        professor.replace(indexAluno,oldAluno, alunoAlterado);
     }
 }

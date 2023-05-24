@@ -75,10 +75,6 @@ public class TelaExcluirAluno extends javax.swing.JInternalFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtRaSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btnVerificar)
                                 .addGap(50, 50, 50)
@@ -90,9 +86,13 @@ public class TelaExcluirAluno extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel1)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel5)
-                                        .addGap(62, 62, 62)
-                                        .addComponent(lblResultado)
-                                        .addGap(113, 113, 113)))))
+                                        .addGap(339, 339, 339))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblResultado)
+                                    .addComponent(txtRaSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(181, 181, 181))))
         );
         layout.setVerticalGroup(
@@ -139,8 +139,8 @@ public class TelaExcluirAluno extends javax.swing.JInternalFrame {
 
     private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
         int ra;
-        String verificadorRa = JOptionPane.showInputDialog("Por questões de segurança, informe o RA do aluno novamente: ");
-        if (verificadorRa.matches("[0-9]+")) {
+        String verificadorRa = txtRaSearch.getText();
+        if (verificadorRa.matches("[0-9]+") && !txtRaSearch.getText().isEmpty()) {
             ra = Integer.parseInt(verificadorRa.toString());
             if (dadosAluno.pesquisarAluno(ra) != null) {
                 int exclusao = JOptionPane.showConfirmDialog(null, "Deseja excluir o aluno : " + dadosAluno.pesquisarAluno(ra).getName(), "ATENÇÃO", JOptionPane.YES_NO_OPTION);

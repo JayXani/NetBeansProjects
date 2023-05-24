@@ -15,7 +15,7 @@ public final class Cursos {
     public String getNomeCurso() {
         return nomeCurso;
     }
-    public void getDisciplinas(){
-
+    public ArrayList<String> getDisciplinas(){
+        return disciplinas;
     }
 }
