@@ -223,7 +223,7 @@ public class TelaAlterarProfessor extends javax.swing.JInternalFrame {
     private void pesquisarProfessor() {
         Professor professorEncontrado;
         String verificadorRegistro = JOptionPane.showInputDialog(null, "Informe o REGISTRO do professor que deseja encontrar !", "Buscar Professor", JOptionPane.QUESTION_MESSAGE) ;
-        if (!"".equals(verificadorRegistro)) {
+        if (verificadorRegistro != null) {
             if (verificadorRegistro.matches("[0-9]+")) {
                 registro = Integer.parseInt(verificadorRegistro.toString());
                 if (professor.pesquisarProfessor(registro) != null) {

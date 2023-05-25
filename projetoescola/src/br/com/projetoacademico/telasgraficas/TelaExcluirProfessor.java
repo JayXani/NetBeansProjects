@@ -171,8 +171,6 @@ public class TelaExcluirProfessor extends javax.swing.JInternalFrame {
         }else{
             JOptionPane.showMessageDialog(null, "Deve-se informar o registro do professor que será excluído.");
         }
-
-
     }//GEN-LAST:event_btnApagarActionPerformed
 
 

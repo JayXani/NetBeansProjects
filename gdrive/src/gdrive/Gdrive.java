@@ -97,7 +97,7 @@ public class Gdrive {
                     break;
                 case "2":
                     if (novaPasta.isEmpty()) {
-                        System.out.println("Impossuivel apagar uma pasta inexistente");
+                        System.out.println("Impossivel apagar uma pasta inexistente");
                         stop = false;
                     } else {
                         System.out.println("\nEscolha uma pasta, que deseje apagar alguma sub-pasta: \n");
@@ -213,7 +213,7 @@ public class Gdrive {
                                             System.out.println("\nInforme o tamanho do arquivo (USE ,(virgula) ao inves de . (ponto) parvalores quebrados !)\n");
                                             double tamanhoArquivo = teclado.nextFloat();
                                             Arquivo newArquivo = new Arquivo(nameNewArquivo, tipoDeArquivo, tamanhoArquivo);
-                                            criacaoArquivoSub.novoArquivo.add(newArquivo);
+                                            criacaoArquivoSub.adicionarArquivos(newArquivo);
                                             System.out.println("\nArquivo criado com sucesso !\n");
                                             break;
                                         }

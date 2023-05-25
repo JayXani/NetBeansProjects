@@ -8,7 +8,6 @@ public class Pasta{
     ArrayList<Arquivo> novoArquivo = new ArrayList();
     ArrayList<SubPastas> novaSubPasta = new ArrayList();
     SubPastas subpasta;
-    Arquivo newDadosArquivos;
 
     public Pasta(String nomePasta) {
         this.nomePasta = nomePasta;
