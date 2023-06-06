@@ -181,30 +181,33 @@ public class TelaAlterarAluno extends javax.swing.JInternalFrame {
     private void btnAlterarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarDadosActionPerformed
         if (permissaoAlterar == true) {
             alterarDados();
-        }else{
-            JOptionPane.showMessageDialog(null,"Você deve pesquisar o aluno, antes da tentativa de alteração !");
+        } else {
+            JOptionPane.showMessageDialog(null, "Você deve pesquisar o aluno, antes da tentativa de alteração !");
         }
     }//GEN-LAST:event_btnAlterarDadosActionPerformed
 
     private boolean pesquisarAluno() {
         Aluno alunoEncontrado;
         String verificadorRa = JOptionPane.showInputDialog(null, "Informe o RA do aluno que deseja encontrar !", "Buscar aluno", JOptionPane.QUESTION_MESSAGE);
-        if (verificadorRa.matches("[0-9]+")) {
-            ra = Integer.parseInt(verificadorRa.toString());
-            if (aluno.pesquisarAluno(ra) != null) {
-                alunoEncontrado = aluno.pesquisarAluno(ra);
-                txtNomeAluno.setText(alunoEncontrado.getName());
-                lblRaAluno.setText(verificadorRa);
-                txtTelAluno.setText(alunoEncontrado.getTelefone());
-                txtEndAluno.setText(alunoEncontrado.getEndereco());
-                txtSexo.setText(alunoEncontrado.getSexo());
-                permissaoAlterar = true;
+        if (verificadorRa != null) {
+            if (verificadorRa.matches("[0-9]+")) {
+                ra = Integer.parseInt(verificadorRa.toString());
+                if (aluno.pesquisarAluno(ra) != null) {
+                    alunoEncontrado = aluno.pesquisarAluno(ra);
+                    txtNomeAluno.setText(alunoEncontrado.getName());
+                    lblRaAluno.setText(verificadorRa);
+                    txtTelAluno.setText(alunoEncontrado.getTelefone());
+                    txtEndAluno.setText(alunoEncontrado.getEndereco());
+                    txtSexo.setText(alunoEncontrado.getSexo());
+                    permissaoAlterar = true;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Aluno não encontrado na base de dados");
+                }
             } else {
-                JOptionPane.showMessageDialog(null, "Aluno não encontrado na base de dados");
+                JOptionPane.showMessageDialog(null, "O campo de RA do aluno só é aceito números !");
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "O campo de RA do aluno só é aceito números !");
         }
+
         return true;
     }
 

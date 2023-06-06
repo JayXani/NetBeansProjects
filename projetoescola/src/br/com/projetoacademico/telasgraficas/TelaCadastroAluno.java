@@ -119,20 +119,21 @@ public class TelaCadastroAluno extends javax.swing.JInternalFrame {
                                         .addComponent(comboSe, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(txtTelefoneAluno, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGap(1, 1, 1)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel9))
-                                    .addGap(247, 247, 247)))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(1, 1, 1)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(btnCadastrar, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel9)))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(163, 163, 163)
+                                            .addComponent(jLabel1)))
+                                    .addGap(18, 18, 18)))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addGap(18, 18, 18)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(149, 149, 149))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -184,8 +185,12 @@ public class TelaCadastroAluno extends javax.swing.JInternalFrame {
             int ra = Integer.parseInt(txtRA.getText());
             buscarAluno = aluno.pesquisarFullAluno();
             if (buscarAluno != null && buscarAluno.get(ra) != null) {
-                JOptionPane.showMessageDialog(null, "ATENÇÃO !\nImpossivel fazer o cadastro de um novo aluno com o RA informado !"
-                        + "\nPois existe um aluno com o mesmo RA.\n\n" + "RA correspondente a: " + aluno.pesquisarAluno(ra).getName());
+                JOptionPane.showMessageDialog(null, """
+                                                    ATEN\u00c7\u00c3O !
+                                                    Impossivel fazer o cadastro de um novo aluno com o RA informado !
+                                                    Pois existe um aluno com o mesmo RA.
+                                                    
+                                                    RA correspondente a: """ + aluno.pesquisarAluno(ra).getName());
             } else {
                 Aluno aluno1 = new Aluno(ra, txtNomeAluno.getText(),
                         txtEndAluno.getText(), txtTelefoneAluno.getText(), sexo);

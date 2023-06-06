@@ -1,7 +1,10 @@
 package br.com.projetoacademico.dao;
 
+import br.com.projetoacademico.projetoescola.Cursos;
 import java.util.HashMap;
 import br.com.projetoacademico.projetoescola.Professor;
+import java.util.ArrayList;
+
 
 public class DaoProfessor {
 
@@ -23,7 +26,21 @@ public class DaoProfessor {
         return (professor.isEmpty() ? null : professor);
     }
 
-      public void alterarProfessor(int indexAluno,Professor oldAluno, Professor alunoAlterado) {
-        professor.replace(indexAluno,oldAluno, alunoAlterado);
+    public void alterarProfessor(int indexProfessor,Professor oldProfessor, Professor professorNew) {
+        professor.replace(indexProfessor,oldProfessor, professorNew);
+    }
+    public HashMap<String,Cursos> getCursos(int register){
+        return professor.get(register).getCursos();
+    }
+    public void cadastrarDisciplinas (String nameCurso, ArrayList<String> disciplina, int register){
+        professor.get(register).getCursos().get(nameCurso).setDisciplinas(disciplina);
+    }
+    public ArrayList<String> getDisciplinas(String nameCourse, int register){
+        for(Cursos verifyCourse : professor.get(register).getCursos().values()){
+            if(verifyCourse.getNomeCurso().equals(nameCourse)){
+                return verifyCourse.getDisciplinas();
+            }
+        }
+        return null;
     }
 }
