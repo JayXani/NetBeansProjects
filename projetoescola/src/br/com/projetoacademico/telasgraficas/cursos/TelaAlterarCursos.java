@@ -6,10 +6,9 @@ package br.com.projetoacademico.telasgraficas.cursos;
 
 import br.com.projetoacademico.dao.DaoProfessor;
 import br.com.projetoacademico.projetoescola.Cursos;
-import br.com.projetoacademico.projetoescola.Professor;
-import java.util.HashMap;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -160,30 +159,38 @@ public class TelaAlterarCursos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAlterInformationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterInformationsActionPerformed
-
+        JOptionPane.showMessageDialog(null, """
+                                            Pedimos desculpas pelo incoveniente, mas estamos com problemas no desenvolvimento. O erro ocorreu inesperadamente, 
+                                            pe\u00e7o sua compreen\u00e7\u00e3o pois estamos tentando resolver o problema o mais rapido possivel !
+                                            \n\nAtt, desenvolvedor Danilo de Araújo !""", "ATENÇÃO",JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnAlterInformationsActionPerformed
 
     private void btnSearchInformationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchInformationsActionPerformed
-        searchInformations();
+        searchInformation();
     }//GEN-LAST:event_btnSearchInformationsActionPerformed
-
-    private void searchInformations() {
-        String verifyRegister = JOptionPane.showInputDialog(null, "Informe o REGISTRO do professor, para a verificação: ");
-        int registerChecked;
-        Professor professorChecked;
-        DefaultListModel listOfCourses = new DefaultListModel();
-
-        if (verifyRegister != null) {
-            registerChecked = Integer.parseInt(verifyRegister.toString());
-            professorChecked = updateCourseProfessor.pesquisarProfessor(registerChecked);
-            if (professorChecked != null) {
-                JOptionPane.showMessageDialog(null, "Professor encontrado: " + professorChecked.getName()
-                        + "\n\nOs dados do professor, referente ao curso e disciplina, serão preenchidos\nautomaticamente para auxilia-lo no preenchimento !");
-                permitionForUpdate = true;
+    private void searchInformation(){
+        String verifyRecordProf;
+        int recordChecked;
+        DefaultListModel listInformations = new DefaultListModel();
+        
+        verifyRecordProf = JOptionPane.showInputDialog(null,"Informe o registro do professor: ");
+        if(verifyRecordProf != null){
+            if(verifyRecordProf.matches("[0-9]+")){
+                recordChecked = Integer.parseInt(verifyRecordProf.toString());
+                if(updateCourseProfessor.pesquisarProfessor(recordChecked) != null){
+                    for(Cursos courses : updateCourseProfessor.getCourses(recordChecked)){
+                        listInformations.addElement("Curso: "+ courses.getNomeCurso() + "Disciplinas: " + courses.getDisciplinas());
+                        jlistCourses.setModel(listInformations);
+                    }
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "O registro do professor não pode conter letras !");
             }
         }
-
     }
+    
+
+ 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterInformations;

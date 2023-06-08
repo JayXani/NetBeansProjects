@@ -134,66 +134,67 @@ public class TelaCadastroCursos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadDisciplinasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadDisciplinasActionPerformed
-        adicionarDisciplinas();
+        JOptionPane.showMessageDialog(null, """
+                                            Pedimos desculpas pelo incoveniente, mas estamos com problemas no desenvolvimento. O erro ocorreu inesperadamente, 
+                                            pe\u00e7o sua compreen\u00e7\u00e3o pois estamos tentando resolver o problema o mais rapido possivel !
+                                            \n\nAtt, desenvolvedor Danilo de Araújo !""", "ATENÇÃO",JOptionPane.ERROR_MESSAGE);
+        //addDisciplinas();
     }//GEN-LAST:event_btnCadDisciplinasActionPerformed
 
     private void btnCadastrarCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarCursoActionPerformed
-        adicionarNovosCursos();
-
+       if(addNewCourses() == false){
+            JOptionPane.showMessageDialog(null, "Impossivel cadastrar o curso, pois o curso já existe !");
+       }
     }//GEN-LAST:event_btnCadastrarCursoActionPerformed
-    public void adicionarNovosCursos() {
-        Cursos newCurso;
-        String confirmRegistro = JOptionPane.showInputDialog(null, "Primeiramente, informe o registro do professor que deseja adicionas o curso: ", "Cadastro de cursos", JOptionPane.OK_CANCEL_OPTION);
-        int confirmOption;
-        int registroChecked;
-        String nameCourse = comboCurso.getSelectedItem().toString();
-        if (nameCourse.equals("Escolha um curso")) {
-            JOptionPane.showMessageDialog(null, "É necessario informar o curso para continuar !");
-        } else {
-            if (confirmRegistro != null) {
-                if (confirmRegistro.matches("[0-9]+")) {
-                    registroChecked = Integer.parseInt(confirmRegistro.toString());
-                    if (updateInformations.pesquisarProfessor(registroChecked) != null) {
-                        confirmOption = JOptionPane.showConfirmDialog(null, "Professor encontrado: " + updateInformations.pesquisarProfessor(registroChecked).getName()
-                                + ". Caso deseje continuar clique em ok", "Search Professor", JOptionPane.OK_CANCEL_OPTION);
-                        if (confirmOption == JOptionPane.OK_OPTION) {
-                            newCurso = new Cursos(comboCurso.getSelectedItem().toString());
-                            updateInformations.cadastrarCursos(nameCourse, newCurso, registroChecked);
-                            JOptionPane.showMessageDialog(null, "Curso cadastrado com sucesso !");
-                        }
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Professor não encontrado !");
-                }
-            }
-        }
-    }
+    private boolean addNewCourses() {
+        String verifyRecordProf;
+        Cursos course;
+        String switchCourse = comboCurso.getSelectedItem().toString();
+        int recordProfessor;
 
-    public void adicionarDisciplinas() {
-        String confirmRegister = JOptionPane.showInputDialog(null, "Informe o registro do professor:");
-        String searchCourse;
-        String disciplinas;
-        int registerChecked;
-        ArrayList<String> addDisciplinas = new ArrayList();
-
-        if (txtCadDisciplinas.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "O campo de disciplinas deve estar preenchido corretamente !");
+        if (switchCourse.equals("Escolha um curso")) {
+            JOptionPane.showMessageDialog(null, "Informe primeiramente o curso que deseja cadastrar !");
         } else {
-            if (confirmRegister != null) {
-                registerChecked = Integer.parseInt(confirmRegister.toString());
-                if (updateInformations.pesquisarProfessor(registerChecked) != null) {
-                    searchCourse = JOptionPane.showInputDialog(null, "Informe o nome do CURSO que deseja adicionar a disciplina:");
-                    if (searchCourse != null) {
-                        updateInformations.cadastrarDisciplinas(searchCourse, addDisciplinas, registerChecked);
-                        JOptionPane.showMessageDialog(null, "Disciplinas cadastradas com sucesso !");
+            verifyRecordProf = JOptionPane.showInputDialog(null, "Informe o REGISTRO do professor: ");
+            if (verifyRecordProf != null) {
+                recordProfessor = Integer.parseInt(verifyRecordProf.toString());
+                if (updateInformations.pesquisarProfessor(recordProfessor) != null) {
+                    for (Cursos courses : updateInformations.getCourses(recordProfessor)) {
+                        if (courses.getNomeCurso().equals(switchCourse)) {return false;}
                     }
+                    course = new Cursos(switchCourse);
+                    updateInformations.cadastrarCursos(recordProfessor, course);
+                    JOptionPane.showMessageDialog(null, "Curso cadastrado com sucesso !");
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Professor não encontrado na base de dados !");
                 }
             }
-
         }
+        return true;
+    }
 
+    private void addDisciplinas() {
+        String verifyRecord;
+        String nameCourse;
+        int recordChecked;
+        ArrayList<String> addNewDisciplinas = new ArrayList();
+        if (txtCadDisciplinas.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "É necessario informar as disciplinas no campor de texto, antes de proceguir !");
+        } else {
+            verifyRecord = JOptionPane.showInputDialog(null, "Informe o REGISTRO do professor");
+            if ((verifyRecord != null) || (verifyRecord.matches("[0-9]+"))) {
+                recordChecked = Integer.parseInt(verifyRecord.toString());
+                nameCourse = JOptionPane.showInputDialog(null, "Informe o nome do CURSO que deseja adicionar as disciplinas: ");
+                if (nameCourse != null) {
+                    addNewDisciplinas.add(txtCadDisciplinas.getText().toString());
+                    updateInformations.cadastrarDisciplinas(recordChecked,nameCourse,addNewDisciplinas);
+                    JOptionPane.showMessageDialog(null, "Disciplinas cadastradas com sucesso");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Professor não encontrado na base de dados !");
+            }
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

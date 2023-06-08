@@ -5,7 +5,6 @@ import java.util.HashMap;
 import br.com.projetoacademico.projetoescola.Professor;
 import java.util.ArrayList;
 
-
 public class DaoProfessor {
 
     HashMap<Integer, Professor> professor = new HashMap();
@@ -26,39 +25,25 @@ public class DaoProfessor {
         return (professor.isEmpty() ? null : professor);
     }
 
-    public void alterarProfessor(int indexProfessor,Professor oldProfessor, Professor professorNew) {
-        professor.replace(indexProfessor,oldProfessor, professorNew);
+    public void alterarProfessor(int indexProfessor, Professor oldProfessor, Professor professorNew) {
+        professor.replace(indexProfessor, oldProfessor, professorNew);
     }
-    public Cursos getAllCourses(String nameCourse, int register){
-        return professor.get(register).searchCursos(nameCourse);
+    public void cadastrarCursos (int recordProfessor, Cursos newCurso){
+        professor.get(recordProfessor).setCourses(newCurso);
     }
-    public void cadastrarCursos(String nameCourse , Cursos addCourse, int registerProfessor){
-        if(professor.get(registerProfessor) != null){
-            professor.get(registerProfessor).setCursos(nameCourse, addCourse);
+    public void cadastrarDisciplinas(int recordProfessor,String nameCourse,ArrayList <String> disciplinas){
+        if(professor  != null){
+            professor.get(recordProfessor).addDisiciplinas(nameCourse, disciplinas);
         }
     }
-    public Cursos searchCursos(String nameCourse, int registerProfessor){
-        if(professor.get(registerProfessor) != null){
-            return professor.get(registerProfessor).searchCursos(nameCourse);
+    public ArrayList<Cursos> getCourses(int registroProfessor) {
+        return professor.get(registroProfessor).getCoursesProfessor();
+    }
+    
+    public ArrayList<String> getDisciplinas(String nameCourse, int registerProfessor){
+        if(professor != null){
+            return professor.get(registerProfessor).getDisciplinas(nameCourse);
         }
         return null;
-    }
-    
-    public void cadastrarDisciplinas (String nameCurso, ArrayList<String> disciplina, int register){
-        if(professor.get(register) != null){
-            if(professor.get(register).searchCursos(nameCurso) != null){
-                professor.get(register).searchCursos(nameCurso).setDisciplinas(disciplina);
-            }
-            System.out.println(professor.get(register).searchCursos(nameCurso).getDisciplinas());
-        }
-    }
-    
-    public ArrayList<String> getDisciplinas(String nameCourse, int register){
-       if(professor.get(register) != null){
-            if(professor.get(register).searchCursos(nameCourse) != null){
-                return professor.get(register).searchCursos(nameCourse).getDisciplinas();
-            }
-        }
-       return null;
     }
 }
