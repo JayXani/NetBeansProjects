@@ -1,4 +1,4 @@
-package br.com.projetoacademico.telasgraficas;
+package br.com.projetoacademico.telasgraficas.professor;
 
 import br.com.projetoacademico.dao.DaoProfessor;
 import java.util.ArrayList;
@@ -225,8 +225,12 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
             int registro = Integer.parseInt(validadorRegistro);
             buscarProfessor = novoProfessor.pesquisarFULLprofessor();
             if (buscarProfessor != null && buscarProfessor.get(registro) != null) {
-                JOptionPane.showMessageDialog(null, "ATENÇÃO !\nImpossivel fazer o cadastro de um novo professor com o registro informado !"
-                        + "\nPois existe um professor com o mesmo registro.\n\n" + "Registro correspondente a: " + novoProfessor.pesquisarProfessor(registro).getName());
+                JOptionPane.showMessageDialog(null, """
+                                                    ATEN\u00c7\u00c3O !
+                                                    Impossivel fazer o cadastro de um novo professor com o registro informado !
+                                                    Pois existe um professor com o mesmo registro.
+                                                    
+                                                    Registro correspondente a: """ + novoProfessor.pesquisarProfessor(registro).getName());
             } else {
                 
                 Professor professor = new Professor(registro, txtNomeProf.getText(),
@@ -237,6 +241,7 @@ public class TelaCadastroProfessor extends javax.swing.JInternalFrame {
                 txtNomeProf.setText("");
                 txtEndProf.setText("");
                 txtTelefoneProf.setText("");
+                this.dispose();
      
             }
 

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package br.com.projetoacademico.telasgraficas;
+package br.com.projetoacademico.telasgraficas.alunos;
 
 import br.com.projetoacademico.dao.DaoAluno;
 import java.util.HashMap;

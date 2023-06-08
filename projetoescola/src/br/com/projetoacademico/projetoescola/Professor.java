@@ -1,7 +1,6 @@
 
 package br.com.projetoacademico.projetoescola;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public final class Professor extends Pessoa{
@@ -13,11 +12,14 @@ public final class Professor extends Pessoa{
         this.registroProf = registroProf;
         
     }
-    public void setCursos(HashMap<String,Cursos> cursos){
-        this.cursos = cursos;
+    public void setCursos(String nameCourse,Cursos addCourse){
+        cursos.put(nameCourse,addCourse);
     }
-    public HashMap<String,Cursos> getCursos(){
-        return cursos;
+    public Cursos searchCursos(String nameCourse){
+        if(cursos.get(nameCourse) != null){
+            return cursos.get(nameCourse);
+        }
+        return null;
     }
     public int getRegistro(){
         return registroProf;

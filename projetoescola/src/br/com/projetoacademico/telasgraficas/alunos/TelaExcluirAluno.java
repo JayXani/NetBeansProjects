@@ -1,4 +1,4 @@
-package br.com.projetoacademico.telasgraficas;
+package br.com.projetoacademico.telasgraficas.alunos;
 
 import br.com.projetoacademico.dao.DaoAluno;
 import javax.swing.JOptionPane;

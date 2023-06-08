@@ -29,18 +29,36 @@ public class DaoProfessor {
     public void alterarProfessor(int indexProfessor,Professor oldProfessor, Professor professorNew) {
         professor.replace(indexProfessor,oldProfessor, professorNew);
     }
-    public HashMap<String,Cursos> getCursos(int register){
-        return professor.get(register).getCursos();
+    public Cursos getAllCourses(String nameCourse, int register){
+        return professor.get(register).searchCursos(nameCourse);
     }
-    public void cadastrarDisciplinas (String nameCurso, ArrayList<String> disciplina, int register){
-        professor.get(register).getCursos().get(nameCurso).setDisciplinas(disciplina);
+    public void cadastrarCursos(String nameCourse , Cursos addCourse, int registerProfessor){
+        if(professor.get(registerProfessor) != null){
+            professor.get(registerProfessor).setCursos(nameCourse, addCourse);
+        }
     }
-    public ArrayList<String> getDisciplinas(String nameCourse, int register){
-        for(Cursos verifyCourse : professor.get(register).getCursos().values()){
-            if(verifyCourse.getNomeCurso().equals(nameCourse)){
-                return verifyCourse.getDisciplinas();
-            }
+    public Cursos searchCursos(String nameCourse, int registerProfessor){
+        if(professor.get(registerProfessor) != null){
+            return professor.get(registerProfessor).searchCursos(nameCourse);
         }
         return null;
+    }
+    
+    public void cadastrarDisciplinas (String nameCurso, ArrayList<String> disciplina, int register){
+        if(professor.get(register) != null){
+            if(professor.get(register).searchCursos(nameCurso) != null){
+                professor.get(register).searchCursos(nameCurso).setDisciplinas(disciplina);
+            }
+            System.out.println(professor.get(register).searchCursos(nameCurso).getDisciplinas());
+        }
+    }
+    
+    public ArrayList<String> getDisciplinas(String nameCourse, int register){
+       if(professor.get(register) != null){
+            if(professor.get(register).searchCursos(nameCourse) != null){
+                return professor.get(register).searchCursos(nameCourse).getDisciplinas();
+            }
+        }
+       return null;
     }
 }

@@ -2,12 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package br.com.projetoacademico.telasgraficas;
+package br.com.projetoacademico.telasgraficas.cursos;
 
 import br.com.projetoacademico.dao.DaoProfessor;
 import br.com.projetoacademico.projetoescola.Cursos;
 import java.util.ArrayList;
-import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,8 +16,6 @@ import javax.swing.JOptionPane;
 public class TelaCadastroCursos extends javax.swing.JInternalFrame {
 
     private final DaoProfessor updateInformations;
-    private final HashMap<String, Cursos> cursos = new HashMap();
-    private Cursos newCurso;
 
     /**
      * Creates new form TelaCadastroCursos
@@ -145,6 +142,7 @@ public class TelaCadastroCursos extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_btnCadastrarCursoActionPerformed
     public void adicionarNovosCursos() {
+        Cursos newCurso;
         String confirmRegistro = JOptionPane.showInputDialog(null, "Primeiramente, informe o registro do professor que deseja adicionas o curso: ", "Cadastro de cursos", JOptionPane.OK_CANCEL_OPTION);
         int confirmOption;
         int registroChecked;
@@ -160,8 +158,7 @@ public class TelaCadastroCursos extends javax.swing.JInternalFrame {
                                 + ". Caso deseje continuar clique em ok", "Search Professor", JOptionPane.OK_CANCEL_OPTION);
                         if (confirmOption == JOptionPane.OK_OPTION) {
                             newCurso = new Cursos(comboCurso.getSelectedItem().toString());
-                            cursos.put(nameCourse, newCurso);
-                            updateInformations.pesquisarProfessor(registroChecked).setCursos(cursos);
+                            updateInformations.cadastrarCursos(nameCourse, newCurso, registroChecked);
                             JOptionPane.showMessageDialog(null, "Curso cadastrado com sucesso !");
                         }
                     }
@@ -175,24 +172,24 @@ public class TelaCadastroCursos extends javax.swing.JInternalFrame {
     public void adicionarDisciplinas() {
         String confirmRegister = JOptionPane.showInputDialog(null, "Informe o registro do professor:");
         String searchCourse;
+        String disciplinas;
         int registerChecked;
+        ArrayList<String> addDisciplinas = new ArrayList();
 
-        ArrayList<String> disciplinas = new ArrayList();
-        if (confirmRegister != null) {
-            registerChecked = Integer.parseInt((confirmRegister.toString()));
-            if (updateInformations.pesquisarProfessor(registerChecked) != null) {
-                searchCourse = JOptionPane.showInputDialog(null, "Informe o nome do curso que deseja adicionar a disciplina");
-                if (searchCourse != null) {
-                    if (txtCadDisciplinas.getText().isEmpty()) {
-                        JOptionPane.showMessageDialog(null, "ATENÇÃO !\nÉ necessario informar as disciplinas no campo de texto abaixo de cursos !");
-                    } else {
-                        disciplinas.add(txtCadDisciplinas.getText().toString());
-                        updateInformations.cadastrarDisciplinas(searchCourse.toUpperCase(), disciplinas, registerChecked);
+        if (txtCadDisciplinas.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "O campo de disciplinas deve estar preenchido corretamente !");
+        } else {
+            if (confirmRegister != null) {
+                registerChecked = Integer.parseInt(confirmRegister.toString());
+                if (updateInformations.pesquisarProfessor(registerChecked) != null) {
+                    searchCourse = JOptionPane.showInputDialog(null, "Informe o nome do CURSO que deseja adicionar a disciplina:");
+                    if (searchCourse != null) {
+                        updateInformations.cadastrarDisciplinas(searchCourse, addDisciplinas, registerChecked);
                         JOptionPane.showMessageDialog(null, "Disciplinas cadastradas com sucesso !");
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Professor não encontrado na base de dados !");
                 }
-            } else {
-                JOptionPane.showMessageDialog(null, "Professor não encontrado !");
             }
 
         }

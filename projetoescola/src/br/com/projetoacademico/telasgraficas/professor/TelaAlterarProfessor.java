@@ -2,13 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
-package br.com.projetoacademico.telasgraficas;
+package br.com.projetoacademico.telasgraficas.professor;
 
 import br.com.projetoacademico.dao.DaoProfessor;
-import br.com.projetoacademico.projetoescola.Cursos;
 import br.com.projetoacademico.projetoescola.Professor;
-import java.util.ArrayList;
-import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 /**
@@ -212,7 +209,6 @@ public class TelaAlterarProfessor extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(null, "O campo de REGISTRO do professor só é aceito números !");
             }
         }
-      
     }
 
     private void alterarDados() {

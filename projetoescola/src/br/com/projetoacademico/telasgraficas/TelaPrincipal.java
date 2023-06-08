@@ -4,9 +4,12 @@
  */
 package br.com.projetoacademico.telasgraficas;
 
+import br.com.projetoacademico.telasgraficas.professor.*;
 import br.com.projetoacademico.dao.DaoAluno;
 import br.com.projetoacademico.dao.DaoProfessor;
-import javax.swing.JInternalFrame;
+import br.com.projetoacademico.telasgraficas.cursos.TelaCadastroCursos;
+import br.com.projetoacademico.telasgraficas.alunos.*;
+import br.com.projetoacademico.telasgraficas.cursos.TelaAlterarCursos;
 import javax.swing.JOptionPane;
 
 /**
@@ -53,6 +56,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jalterarProfessor = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
 
@@ -180,6 +184,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem1);
 
+        jMenuItem4.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem4.setText("Alterar Cursos e/ou disciplinas");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem4);
+
         jMenuBar1.add(jMenu2);
 
         jMenu3.setText("Opções");
@@ -303,6 +316,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
          JOptionPane.showMessageDialog(null, "Desenvolvido por: Danilo de Araújo Leite Gomes. \nO software foi desenvolvido a fim de estudo, quaisquer erros que ocorram\ninforme o desenvolvedor responsavel.","Informações adicionais",JOptionPane.WARNING_MESSAGE);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        TelaAlterarCursos alterCourses = new TelaAlterarCursos(daoProfessor);
+        alterCourses.setVisible(true);
+        desktopPrincipal.add(alterCourses);
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -351,6 +370,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jalterarProfessor;
     public static javax.swing.JMenu jmenuAluno;
     private javax.swing.JMenuItem menuAlterarAluno;
