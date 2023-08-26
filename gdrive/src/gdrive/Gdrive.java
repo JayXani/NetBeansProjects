@@ -1,230 +1,179 @@
 package gdrive;
-
 import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.stream.Stream;
 
 public class Gdrive {
+    enum Messages{
+        FOLDER_CREATED,
+        FOLDER_ADD_SUCCESS,
+        ERROR_FOLDER_MAIN_NOT_CREATED,
+        ERROR_FOLDER_ALREADY_EXITS,
+        ERROR_FILE_ALREADY_EXISTS_or_EMPTY,
 
-    Scanner teclado = new Scanner(System.in);
-    ArrayList<Pasta> novaPasta = new ArrayList();
-
-    public void adicionarPasta(Pasta adicionarPasta) {
-        novaPasta.add(adicionarPasta);
+        SUCCESS_CREATE_FILE,
+        SUCCESS_DELETED,
+        ERROR_NOT_DELETED,
+        ERROR_FOLDER_NOT_EXISTS;
     }
+    private ArrayList<Pasta> pastas = new ArrayList();
 
-    public void adicionarSubPastas(String nomePasta) {
-        if (novaPasta.isEmpty()) {
-            System.out.println("\nDeve-se criar uma pasta primeiro !\n");
-        } else {
-            for (Pasta searchPasta : novaPasta) {
-                if (searchPasta.nomePasta.equals(nomePasta)) {
-                    System.out.println("\nInforme o nome da pasta: \n");
-                    String nomeSubPasta = teclado.next();
-                    searchPasta.adicionarSubpastas(nomeSubPasta);
-                    System.out.println("Pasta adicionada com sucesso");
-                }
-            }
+    public Messages createFolder(String nameFolder) {
+        if(searchFolder(nameFolder) == null && !nameFolder.isEmpty()){
+            pastas.add(new Pasta(nameFolder));
+            return Messages.FOLDER_CREATED;
         }
-
+        return Messages.ERROR_FOLDER_ALREADY_EXITS;
     }
-
-    public double calcTamanhoPast() {
-        System.out.println("\nInforme o nome da pasta que deseja verificar o tamanho:");
-        String nomePastaTamanho = teclado.next();
-        double tamanhoPasta = 1;
-        if (novaPasta.isEmpty()) {
-            System.out.println("\nDeve-se primeiro criar uma pasta !");
-        } else {
-            for (Pasta verifyPasta : novaPasta) {
-                if (verifyPasta.nomePasta.equals(nomePastaTamanho)) {
-                    if (!verifyPasta.novoArquivo.isEmpty()) {
-                        for (Arquivo novoArquivo : verifyPasta.novoArquivo) {
-                            tamanhoPasta += novoArquivo.tamanhoArquivo;
-                        }
-                    }
-                    if (!verifyPasta.novaSubPasta.isEmpty()) {
-                        for (SubPastas novaSubPasta : verifyPasta.novaSubPasta) {
-                            if (!novaSubPasta.novoArquivo.isEmpty()) {
-                                for (Arquivo getTamanhoArquivo : novaSubPasta.novoArquivo) {
-                                    tamanhoPasta += getTamanhoArquivo.tamanhoArquivo;
-                                }
-                            }
-                        }
+    public Messages addFileInFolder(String nameFolder, Arquivo file){
+        Pasta addFileIn = searchFolder(nameFolder);
+        if(addFileIn != null){
+            if(!addFileIn.getArquivo().isEmpty()){
+                for(Arquivo verifyFile : addFileIn.getArquivo()){
+                    if(!verifyFile.getNomeArquivo().equals(file.getNomeArquivo()) || !verifyFile.getTipoArquivo().equals(file.getTipoArquivo())){
+                        addFileIn.adicionarNovosArquivos(file);
+                        return Messages.SUCCESS_CREATE_FILE;
                     }
                 }
             }
+            addFileIn.adicionarNovosArquivos(file);
+            return Messages.SUCCESS_CREATE_FILE;
         }
-        return tamanhoPasta;
+        return Messages.ERROR_FILE_ALREADY_EXISTS_or_EMPTY;
     }
-
-    public void excluirPasta() {
-        String menu = "\n1)Excluir Pasta \n2)Excluir uma sub-pasta";
-        String escolhaExcluir;
-        String escolhaPastaRemove;
-        boolean stop = true;
-        System.out.println("\nEscolha uma das opcoes abaixo: \n");
-
-        while (stop != false) {
-            System.out.println(menu);
-            escolhaExcluir = teclado.next();
-            switch (escolhaExcluir) {
-                case "1":
-                    if (novaPasta.isEmpty()) {
-                        System.out.println("\nNao eh possivel excluir uma pasta inexistente !\n");
-                        stop = false;
-                    } else {
-                        System.out.println("\nEscolha uma pasta para exclusao !:\n");
-                        pesquisarPasta();
-                        escolhaPastaRemove = teclado.next();
-                        for (int i = 0; i < novaPasta.size(); i++) {
-                            if (novaPasta.get(i).nomePasta.equals(escolhaPastaRemove)) {
-                                System.out.println("Pasta encontrada: " + novaPasta.get(i).nomePasta);
-                                System.out.println("\nDeseja excluir a pasta ? Y/N");
-                                escolhaPastaRemove = teclado.next();
-                                if (escolhaPastaRemove.equals("Y")) {
-                                    novaPasta.remove(i);
-                                    System.out.println("Pasta Excluida com sucesso\n");
-                                    stop = false;
-                                    break;
-                                } else {
-                                    System.out.println("\nPasta não excluida !\n");
-                                    stop = false;
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                    break;
-                case "2":
-                    if (novaPasta.isEmpty()) {
-                        System.out.println("Impossivel apagar uma pasta inexistente");
-                        stop = false;
-                    } else {
-                        System.out.println("\nEscolha uma pasta, que deseje apagar alguma sub-pasta: \n");
-                        pesquisarPasta();
-                        escolhaPastaRemove = teclado.next();
-                        for (Pasta principal : novaPasta) {
-                            if (principal.nomePasta.equals(escolhaPastaRemove)) {
-                                System.out.println("\nInforme o nome da subPasta que deseja apagar :\n");
-                                escolhaPastaRemove = teclado.next();
-                                for (int i = 0; i < principal.novaSubPasta.size(); i++) {
-                                    if (principal.novaSubPasta.get(i).nomeSubpastas.equals(escolhaPastaRemove)) {
-                                        principal.novaSubPasta.remove(i);
-                                        System.out.println("\nPasta removida com sucesso !");
-                                        stop = false;
-                                        break;
-                                    } else {
-                                        System.out.println("\nPasta nao encontrada !");
-                                    }
-                                }
-                            } else {
-                                System.out.println("\nNao existe pasta com o nome informado !");
-                            }
-                        }
-                    }
-                    break;
+    public Messages deleteFileInFolder(String nameFileToDelete){
+        for(Pasta folderMain : pastas){
+            for (Arquivo files : folderMain.getArquivo()){
+                if(files.getNomeArquivo().equals(nameFileToDelete)){
+                    folderMain.getArquivo().remove(files);
+                    return Messages.SUCCESS_DELETED;
+                }
             }
+            if(deleteFileRecursive(folderMain, nameFileToDelete)) return Messages.SUCCESS_DELETED;
         }
-        System.out.println("Escolha uma das opcoes abaixo");
+        return Messages.ERROR_NOT_DELETED;
+    }
+    private boolean deleteFileRecursive(Pasta subFolder, String nameFile){
+        for(Pasta folder : subFolder.getSubPasta()){
+            for(Arquivo file : folder.getArquivo()){
+                if(file.getNomeArquivo().equals(nameFile)){
+                    folder.getArquivo().remove(file);
+                    return true;
+                }
+            }
+            if(!subFolder.getSubPasta().isEmpty()) return deleteFileRecursive(folder, nameFile);
+        }
+        return false;
+    }
+    public Messages addSubFolder(String nameFolderMain, String nameSubpasta) {
+        Pasta addIn = searchFolder(nameFolderMain);
+        if(addIn != null){
+            addIn.adicionarSubpastas(new Pasta(nameSubpasta));
+            return Messages.FOLDER_ADD_SUCCESS;
+        }
+        return Messages.ERROR_FOLDER_MAIN_NOT_CREATED;
     }
 
-    public void pesquisarPasta() {
-        int i = 1;
-        for (Pasta searchPasta : novaPasta) {
-            System.out.println(i + " " + searchPasta.nomePasta);
-            i++;
-        }
-    }
-
-    public void abrirPasta(String pastaAberta) {
-        String escolha;
-        boolean stop = true;
-        String menu = "\n1)Criar um novo arquivo \n2) Ver o conteudo da pasta\n3) Adicionar arquivo em uma Sub-Pasta";
-
-        if (novaPasta.isEmpty()) {
-            System.out.println("\nNao e possivel abrir a pasta, pois ela nao existe !\n");
-        } else {
-            for (Pasta abrirPasta : novaPasta) {
-                if (abrirPasta.nomePasta.equals(pastaAberta)) {
-                    System.out.println("Pasta encontrada: " + abrirPasta.nomePasta);
-                    System.out.println("\nEscolha o que deseja fazer: ");
-
-                    while (stop != false) {
-                        System.out.println(menu);
-                        escolha = teclado.next();
-                        switch (escolha) {
-
-                            case "1":
-                                System.out.println("\nInforme o nome do arquivo :\n");
-                                String nomeArquivo = teclado.next();
-                                System.out.println("\nInforme o tipo do arquivo: \n");
-                                String tipoArquivo = teclado.next();
-                                System.out.println("\nInforme o tamanho do arquivo: (USE ,(virgula) ao inves de . (ponto) parvalores quebrados !)\\a n");
-                                double tamanho = teclado.nextFloat();
-                                Arquivo novoArquivo = new Arquivo(nomeArquivo, tipoArquivo, tamanho);
-                                abrirPasta.adicionarNovosArquivos(novoArquivo);
-                                System.out.println("\nArquivo adicionado com sucesso\n");
-                                stop = false;
-                                break;
-                            case "2":
-                                System.out.println("\nInforme a pasta que deseja ver o conteudo: ");
-                                String nomeConteudo = teclado.next();
-                                if (abrirPasta.nomePasta.equals(nomeConteudo)) {
-                                    System.out.println("\nPasta: " + abrirPasta.nomePasta);
-                                    if (abrirPasta.novoArquivo.isEmpty()) {
-                                        System.out.println("\nNao Existe arquivos dentro da pasta: " + abrirPasta.nomePasta);
-                                    } else {
-                                        for (Arquivo arquivoPasta : abrirPasta.novoArquivo) {
-                                            System.out.println(" -Arquivo da pasta: " + arquivoPasta.nomeArquivo + arquivoPasta.tipoArquivo + " Tamanho: " + arquivoPasta.tamanhoArquivo);
-                                        }
-                                    }
-                                    if (abrirPasta.novaSubPasta.isEmpty()) {
-                                        System.out.println("Não existem Sub-Pastas");
-                                    } else {
-
-                                        for (SubPastas subEncontrada : abrirPasta.novaSubPasta) {
-                                            System.out.println(subEncontrada.nomeSubpastas);
-                                            if (subEncontrada.novoArquivo.isEmpty()) {
-                                                System.out.println("\nNao existem arquivos dentro da sub-pasta\n" + subEncontrada.nomeSubpastas);
-                                            } else {
-                                                for (Arquivo encontrado : subEncontrada.novoArquivo) {
-                                                    System.out.println("  --Arquivo da sub-pasta: " + encontrado.nomeArquivo + encontrado.tipoArquivo + " Tamanho : " + encontrado.tamanhoArquivo);
-                                                }
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    System.out.println("Não existe pasta com o nome informado");
-                                }
-                                stop = false;
-                                break;
-                            case "3":
-                                System.out.println("\nInforme o nome da sub-pasta que deseja : \n");
-                                String subPasta = teclado.next();
-                                if (abrirPasta.novaSubPasta.isEmpty()) {
-                                    System.out.println("\nCrie uma sub-pasta primeiramente !\n");
-                                } else {
-                                    for (SubPastas criacaoArquivoSub : abrirPasta.novaSubPasta) {
-                                        if (criacaoArquivoSub.nomeSubpastas.equals(subPasta)) {
-                                            System.out.println("\nInforme o nome do arquivo que deseja criar: \n");
-                                            String nameNewArquivo = teclado.next();
-                                            System.out.println("\nInforme o tipo de arquivo, ex: .txt, .rar\n");
-                                            String tipoDeArquivo = teclado.next();
-                                            System.out.println("\nInforme o tamanho do arquivo (USE ,(virgula) ao inves de . (ponto) parvalores quebrados !)\n");
-                                            double tamanhoArquivo = teclado.nextFloat();
-                                            Arquivo newArquivo = new Arquivo(nameNewArquivo, tipoDeArquivo, tamanhoArquivo);
-                                            criacaoArquivoSub.adicionarArquivos(newArquivo);
-                                            System.out.println("\nArquivo criado com sucesso !\n");
-                                            break;
-                                        }
-                                    }
-                                }
-                                break;
-                        }
+    public double calculeLengthFolder(String nameFolderIs) {
+        double lengthFolder = 0;
+        for(Pasta getFolder : pastas){
+            if(getFolder.getNomePasta().equals(nameFolderIs)){
+                lengthFolder += getFolder.getLenght();
+                if(!getFolder.getArquivo().isEmpty()){
+                    for(Arquivo fileInMain : getFolder.getArquivo()){
+                        lengthFolder += fileInMain.getTamanhoArquivo();
                     }
                 }
             }
+            if(!getFolder.getSubPasta().isEmpty()){
+                lengthFolder += getLengthInSubFolder(getFolder, nameFolderIs, 0); //lentgh equals at 0 because the lengthFolde contain length of getFolder;
+                return lengthFolder;
+            }
         }
+        return lengthFolder;
+    }
+    private double getLengthInSubFolder(Pasta folder, String nameFolder,double length){
+        for(Pasta subPasta : folder.getSubPasta()){
+            if(subPasta.getNomePasta().equals(nameFolder)){
+                length += subPasta.getLenght();
+                if(!subPasta.getArquivo().isEmpty()) {
+                    for(Arquivo file : subPasta.getArquivo()){
+                        length += file.getTamanhoArquivo();
+                    }
+                }
+            }
+            if(!subPasta.getSubPasta().isEmpty()) return getLengthInSubFolder(subPasta, nameFolder, length);
+        }
+        return length;
+    }
+    private double getLengthFolder(Pasta folderIs, double length){
+            for(Pasta folder : folderIs.getSubPasta()){
+                length += folder.getLenght();
+                if(!folder.getArquivo().isEmpty()) {
+                    for (Arquivo file : folder.getArquivo()) {
+                        length += file.getTamanhoArquivo();
+                    }
+                }
+                if(!folder.getSubPasta().isEmpty()) return getLengthFolder(folder, length);
+            }
+        return length;
+    }
+    public double getLengthOfDriver(){
+        double allLength = 0;
+        for(Pasta folderMain : pastas){
+            allLength += folderMain.getLenght();
+            for(Arquivo fileInMain : folderMain.getArquivo()){
+                allLength += fileInMain.getTamanhoArquivo();
+            }
+            if(!folderMain.getSubPasta().isEmpty()){
+                allLength += getLengthFolder(folderMain, 0);
+                //length equals 0 because "allLength" contain the lentgh of "folderMain"
+            }
+        }
+        return allLength;
+    }
+
+    public Messages deleteFolder(String nameFolder) {
+        for(Pasta folderDelete : pastas){
+            if(folderDelete.getNomePasta().equals(nameFolder)){
+                pastas.remove(folderDelete);
+                return Messages.SUCCESS_DELETED;
+            }
+            boolean success = deleteInRecursive(folderDelete, nameFolder);
+            if(success) return Messages.SUCCESS_DELETED;
+        }
+        return Messages.ERROR_NOT_DELETED;
+    }
+    private boolean deleteInRecursive(Pasta folderIs, String folderDeleteIs){
+        for(Pasta subPastas : folderIs.getSubPasta()){
+            if(subPastas.getNomePasta().equals(folderDeleteIs)){
+                folderIs.getSubPasta().remove(subPastas);
+                return true;
+            }
+            boolean verifyOuther = deleteInRecursive(subPastas, folderDeleteIs);
+            if(verifyOuther) return true;
+        }
+        return false;
+    }
+    public Pasta searchFolder(String nameFolder) {
+        for (Pasta folder : pastas) {
+            if (folder.getNomePasta().equals(nameFolder)) {
+                return folder;
+            }
+            Pasta getFolder = searchRecursive(folder, nameFolder);
+            if (getFolder != null) {
+                return getFolder;
+            }
+        }
+        return null;
+    }
+
+    private Pasta searchRecursive(Pasta folderActual, String nameFolder) {
+        for (Pasta subPastas : folderActual.getSubPasta()) {
+            if (subPastas.getNomePasta().equals(nameFolder))return subPastas;
+            Pasta found = searchRecursive(subPastas, nameFolder);
+            if(found != null) return found;
+        }
+        return null;
     }
 
 }

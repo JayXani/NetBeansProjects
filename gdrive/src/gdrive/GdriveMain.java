@@ -1,53 +1,86 @@
 package gdrive;
 
-import java.util.Scanner;
-
+import javax.swing.*;
+/*
+* OBS: Tive que optar em usar JOptionPane,
+* devido ao "Scanner" está com problemas.
+* */
 public class GdriveMain {
 
     public static void main(String[] args) {
-        Gdrive drive = new Gdrive();
-        Pasta newPasta;
-        String menu = "1) Criar Pasta\n2) Criar um arquivo ou pesquisar conteudo de uma pasta \n3) Criar uma subPasta \n4) Excluir uma pasta \n5) Verificar o tamanho de uma pasta";
-        String escolha;
-        String nomePasta;
-        boolean stop = true;
-        Scanner teclado = new Scanner(System.in);
-        Scanner selecaoDeOpcao = new Scanner(System.in);
+        Gdrive driver = new Gdrive();
+        String menu = """
+                \s
+                1) Criar Pasta (Principal)
+                2) Criar uma sub-Pasta\s
+                3) Excluir uma pasta/sub-pasta\s
+                4) Pesquisar uma pasta\s
+                5) Verificar o tamanho de uma pasta\s
+                6) Adicionar um arquivo em uma pasta/sub-pasta\s
+                7) Excluir um arquivo
+                8) Verificar tamanho TOTAL do DRIVER\s
+                9) Sair\s""";
 
-        while (stop != false) {
-            System.out.println("\nInforme a opcao que deseja: \n\n");
-            System.out.println(menu);
-            escolha = teclado.next();
-            switch (escolha) {
-                case "1":
-                    System.out.println("Informe o nome da pasta que deseja: ");
-                    nomePasta = selecaoDeOpcao.nextLine();
-                    newPasta = new Pasta(nomePasta);
-                    drive.adicionarPasta(newPasta);
- 
-                    break;
-                    
-                case "2":
-                    System.out.println("Escreva o nome da pasta que deseja adicionar um arquivo (ignore os numeros iniciais)\nCaso nao exista nenhuma pasta, abaixo, que nao existem pastas no drive");
-                    drive.pesquisarPasta();
-                    String opcaoPasta = selecaoDeOpcao.next();
-                    drive.abrirPasta(opcaoPasta);
-                    break;
-                case "3":
-                    System.out.println("Escreva o nome da pasta que deseja adicionar uma nova pasta (ignore os numeros iniciais)\nCaso nao exista nenhuma pasta, abaixo, que nao existem pastas no drive");
-                    drive.pesquisarPasta();
-                    String nomePastaPesquisa = selecaoDeOpcao.next();
-                    drive.adicionarSubPastas(nomePastaPesquisa);
-                    break;
-                case "4":
-                    drive.excluirPasta();
-                    break;
-                case "5":
-                    System.out.println("O tamanho da pasta eh: " + drive.calcTamanhoPast() + "\n(Quando a pasta estiver vazia, o tamanho dela eh 1.0)");
-                    break;
+        boolean stop = true;
+        while(stop){
+           int option = Integer.parseInt(JOptionPane.showInputDialog(null, menu, "Escolha uma opção: ", JOptionPane.WARNING_MESSAGE));
+            switch (option) {
+                case 1 -> {
+                    String nameFolder = JOptionPane.showInputDialog(null, "Escolha o nome da pasta que deseja: ");
+                    JOptionPane.showMessageDialog(null, driver.createFolder(nameFolder));
+                }
+                case 2 -> {
+                    String nameFolderMain = JOptionPane.showInputDialog(null, "Informe o nome da pasta que deseja adicionar a sub-pasta:");
+                    String nameSubpastas = JOptionPane.showInputDialog(null, "Crie um nome para a sub-pasta: ");
+                    JOptionPane.showMessageDialog(null, driver.addSubFolder(nameFolderMain, nameSubpastas));
+                }
+                case 3 -> {
+                    String folderDeletedIs = JOptionPane.showInputDialog(null, "Informe o nome da pasta que deseja apagar: ");
+                    JOptionPane.showMessageDialog(null, driver.deleteFolder(folderDeletedIs));
+                }
+                case 4 -> {
+                    String searchFolder = JOptionPane.showInputDialog(null, "Informe o nome da pasta que deseja encontar: ");
+                    Pasta folderIs = driver.searchFolder(searchFolder);
+                    if(folderIs == null){
+                        JOptionPane.showMessageDialog(null,"ERROR !\nPasta não existe !");
+                        break;
+                    }
+                    JOptionPane.showMessageDialog(null, "Pasta encontrada: " + folderIs.getNomePasta());
+                }
+                case 5 -> {
+                    String folderIs = JOptionPane.showInputDialog(null, "Informe o nome da pasta que deseja ver o tamanho: ");
+                    double lengthIs =  driver.calculeLengthFolder(folderIs);
+                    if(lengthIs <= 0) {
+                        JOptionPane.showMessageDialog(null, "ERRO !\nPasta não encontrada");
+                        break;
+                    }
+                    JOptionPane.showMessageDialog(null,"Tamanho da pasta: " + lengthIs);
+                }
+                case 6 -> {
+                    String addFileIn = JOptionPane.showInputDialog(null, "Informe o nome da pasta onde será adicionado o arquivo: ");
+                    String nameFile = JOptionPane.showInputDialog(null, "Informe o nome do arquivo que deseja: ");
+                    double lenghtFile = Double.parseDouble(JOptionPane.showInputDialog(null, "Informe o TAMANHO do arquivo: "));
+                    String typeFile = JOptionPane.showInputDialog(null, "Informe a extensão do arquivo, (ex: .js, .txt): ");
+                    Arquivo file = new Arquivo(nameFile,typeFile, lenghtFile);
+                    JOptionPane.showMessageDialog(null, driver.addFileInFolder(addFileIn, file));
+                }
+                case 7 -> {
+                    String nameFileDelete = JOptionPane.showInputDialog(null, "Informe o nome do arquivo que deseja apagar:");
+                    JOptionPane.showMessageDialog(null,driver.deleteFileInFolder(nameFileDelete));
+                }
+                case 8 -> {
+                    double lengthOfDriver = driver.getLengthOfDriver();
+                    if( lengthOfDriver <= 0 ){
+                        JOptionPane.showMessageDialog(null, "Driver completamente vazio !");
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Tamanho total: " + lengthOfDriver);
+                    }
+                }
+                case 9 -> {
+                    stop = false;
+                }
             }
         }
 
     }
-
 }

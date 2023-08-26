@@ -2,21 +2,37 @@
 package gdrive;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Pasta{
-    String nomePasta;
-    ArrayList<Arquivo> novoArquivo = new ArrayList();
-    ArrayList<SubPastas> novaSubPasta = new ArrayList();
-    SubPastas subpasta;
+    public String getNomePasta() {
+        return nomePasta;
+    }
+
+    private final String nomePasta;
+    private final ArrayList<Arquivo> arquivos = new ArrayList<>();
+    private final ArrayList<Pasta> subPastas = new ArrayList<>();
+    private double lenght = 1;
 
     public Pasta(String nomePasta) {
         this.nomePasta = nomePasta;
     }
-    public void adicionarSubpastas(String nomeSubpasta){
-        subpasta = new SubPastas(nomeSubpasta);
-        novaSubPasta.add(subpasta);
+    public void adicionarSubpastas(Pasta supPastaNew){
+        subPastas.add(supPastaNew);
     }
     public void adicionarNovosArquivos(Arquivo newArquivo){
-        novoArquivo.add(newArquivo);
+        arquivos.add(newArquivo);
     }
+
+    public ArrayList<Arquivo> getArquivo() {
+        return arquivos;
+    }
+
+    public ArrayList<Pasta>getSubPasta() {
+        return subPastas;
+    }
+    public void setLenght(double lenght){
+        this.lenght += lenght;
+    }
+    public double getLenght(){return this.lenght;}
 }
