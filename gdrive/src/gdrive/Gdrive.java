@@ -1,6 +1,6 @@
 package gdrive;
 import java.util.ArrayList;
-import java.util.stream.Stream;
+
 
 public class Gdrive {
     enum Messages{
@@ -15,7 +15,7 @@ public class Gdrive {
         ERROR_NOT_DELETED,
         ERROR_FOLDER_NOT_EXISTS;
     }
-    private ArrayList<Pasta> pastas = new ArrayList();
+    private ArrayList<Pasta> pastas = new ArrayList<>();
 
     public Messages createFolder(String nameFolder) {
         if(searchFolder(nameFolder) == null && !nameFolder.isEmpty()){
