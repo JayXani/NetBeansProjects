@@ -1,5 +1,5 @@
 
-package br.com.millivendas.dal;
+package br.com.millivendas.dao;
 import java.sql.*;
 
 public final class Modulo_conector {

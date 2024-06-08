@@ -4,7 +4,7 @@
  */
 package br.com.millivendas.telas;
 import java.sql.*;
-import br.com.millivendas.dal.Modulo_conector;
+import br.com.millivendas.dao.Modulo_conector;
 import javax.swing.JOptionPane;
 
 /**
